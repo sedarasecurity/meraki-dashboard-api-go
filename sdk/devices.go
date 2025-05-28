@@ -12,16 +12,17 @@ import (
 type DevicesService service
 
 type GetDeviceClientsQueryParams struct {
-	T0       string  `url:"t0,omitempty"`       //The beginning of the timespan for the data. The maximum lookback period is 31 days from today.
-	Timespan float64 `url:"timespan,omitempty"` //The timespan for which the information will be fetched. If specifying timespan, do not specify parameter t0. The value must be in seconds and be less than or equal to 31 days. The default is 1 day.
+	T0       string  `url:"t0,omitempty"`       // The beginning of the timespan for the data. The maximum lookback period is 31 days from today.
+	Timespan float64 `url:"timespan,omitempty"` // The timespan for which the information will be fetched. If specifying timespan, do not specify parameter t0. The value must be in seconds and be less than or equal to 31 days. The default is 1 day.
 }
+
 type GetDeviceLossAndLatencyHistoryQueryParams struct {
-	T0         string  `url:"t0,omitempty"`         //The beginning of the timespan for the data. The maximum lookback period is 60 days from today.
-	T1         string  `url:"t1,omitempty"`         //The end of the timespan for the data. t1 can be a maximum of 31 days after t0.
-	Timespan   float64 `url:"timespan,omitempty"`   //The timespan for which the information will be fetched. If specifying timespan, do not specify parameters t0 and t1. The value must be in seconds and be less than or equal to 31 days. The default is 1 day.
-	Resolution int     `url:"resolution,omitempty"` //The time resolution in seconds for returned data. The valid resolutions are: 60, 600, 3600, 86400. The default is 60.
-	Uplink     string  `url:"uplink,omitempty"`     //The WAN uplink used to obtain the requested stats. Valid uplinks are wan1, wan2, wan3, cellular. The default is wan1.
-	IP         string  `url:"ip,omitempty"`         //The destination IP used to obtain the requested stats. This is required.
+	T0         string  `url:"t0,omitempty"`         // The beginning of the timespan for the data. The maximum lookback period is 60 days from today.
+	T1         string  `url:"t1,omitempty"`         // The end of the timespan for the data. t1 can be a maximum of 31 days after t0.
+	Timespan   float64 `url:"timespan,omitempty"`   // The timespan for which the information will be fetched. If specifying timespan, do not specify parameters t0 and t1. The value must be in seconds and be less than or equal to 31 days. The default is 1 day.
+	Resolution int     `url:"resolution,omitempty"` // The time resolution in seconds for returned data. The valid resolutions are: 60, 600, 3600, 86400. The default is 60.
+	Uplink     string  `url:"uplink,omitempty"`     // The WAN uplink used to obtain the requested stats. Valid uplinks are wan1, wan2, wan3, cellular. The default is wan1.
+	IP         string  `url:"ip,omitempty"`         // The destination IP used to obtain the requested stats. This is required.
 }
 
 type ResponseDevicesGetDevice struct {
@@ -130,21 +131,23 @@ type ResponseDevicesUpdateDeviceCellularSimsSimsApnsAuthentication struct {
 	Type     string `json:"type,omitempty"`     // APN auth type.
 	Username string `json:"username,omitempty"` // APN username, if type is set.
 }
-type ResponseDevicesGetDeviceClients []ResponseItemDevicesGetDeviceClients // Array of ResponseDevicesGetDeviceClients
-type ResponseItemDevicesGetDeviceClients struct {
-	AdaptivePolicyGroup string                                    `json:"adaptivePolicyGroup,omitempty"` // A description of the adaptive policy group
-	Description         string                                    `json:"description,omitempty"`         // Short description of the client
-	DhcpHostname        string                                    `json:"dhcpHostname,omitempty"`        // The client's DHCP hostname
-	ID                  string                                    `json:"id,omitempty"`                  // The ID of the client
-	IP                  string                                    `json:"ip,omitempty"`                  // The IP address of the client
-	Mac                 string                                    `json:"mac,omitempty"`                 // The MAC address of the client
-	MdnsName            string                                    `json:"mdnsName,omitempty"`            // The client's MDNS name
-	NamedVLAN           string                                    `json:"namedVlan,omitempty"`           // The owner-assigned name of the VLAN the client is connected to
-	Switchport          string                                    `json:"switchport,omitempty"`          // The name of the switchport with clients on it, if the device is a switch
-	Usage               *ResponseItemDevicesGetDeviceClientsUsage `json:"usage,omitempty"`               // Client usage data for sent and received
-	User                string                                    `json:"user,omitempty"`                // The client user's name
-	VLAN                *int                                      `json:"vlan,omitempty"`                // The client-assigned name of the VLAN the client is connected to
-}
+type (
+	ResponseDevicesGetDeviceClients     []ResponseItemDevicesGetDeviceClients // Array of ResponseDevicesGetDeviceClients
+	ResponseItemDevicesGetDeviceClients struct {
+		AdaptivePolicyGroup string                                    `json:"adaptivePolicyGroup,omitempty"` // A description of the adaptive policy group
+		Description         string                                    `json:"description,omitempty"`         // Short description of the client
+		DhcpHostname        string                                    `json:"dhcpHostname,omitempty"`        // The client's DHCP hostname
+		ID                  string                                    `json:"id,omitempty"`                  // The ID of the client
+		IP                  string                                    `json:"ip,omitempty"`                  // The IP address of the client
+		Mac                 string                                    `json:"mac,omitempty"`                 // The MAC address of the client
+		MdnsName            string                                    `json:"mdnsName,omitempty"`            // The client's MDNS name
+		NamedVLAN           string                                    `json:"namedVlan,omitempty"`           // The owner-assigned name of the VLAN the client is connected to
+		Switchport          string                                    `json:"switchport,omitempty"`          // The name of the switchport with clients on it, if the device is a switch
+		Usage               *ResponseItemDevicesGetDeviceClientsUsage `json:"usage,omitempty"`               // Client usage data for sent and received
+		User                string                                    `json:"user,omitempty"`                // The client user's name
+		VLAN                *string                                   `json:"vlan,omitempty"`                // The client-assigned name of the VLAN the client is connected to
+	}
+)
 type ResponseItemDevicesGetDeviceClientsUsage struct {
 	Recv *float64 `json:"recv,omitempty"` // Usage received by the client
 	Sent *float64 `json:"sent,omitempty"` // Usage sent by the client
@@ -454,15 +457,17 @@ type ResponseDevicesGetDeviceLldpCdpPorts8Cdp struct {
 	PortID     string `json:"portId,omitempty"`     //
 	SourcePort string `json:"sourcePort,omitempty"` //
 }
-type ResponseDevicesGetDeviceLossAndLatencyHistory []ResponseItemDevicesGetDeviceLossAndLatencyHistory // Array of ResponseDevicesGetDeviceLossAndLatencyHistory
-type ResponseItemDevicesGetDeviceLossAndLatencyHistory struct {
-	EndTime     string   `json:"endTime,omitempty"`     // End time of the sample
-	Goodput     *int     `json:"goodput,omitempty"`     // Number of useful information bits delivered
-	Jitter      *float64 `json:"jitter,omitempty"`      // Jitter, in milliseconds
-	LatencyMs   *float64 `json:"latencyMs,omitempty"`   // Latency in milliseconds
-	LossPercent *float64 `json:"lossPercent,omitempty"` // Percentage of packets lost
-	StartTime   string   `json:"startTime,omitempty"`   // Start time of the sample
-}
+type (
+	ResponseDevicesGetDeviceLossAndLatencyHistory     []ResponseItemDevicesGetDeviceLossAndLatencyHistory // Array of ResponseDevicesGetDeviceLossAndLatencyHistory
+	ResponseItemDevicesGetDeviceLossAndLatencyHistory struct {
+		EndTime     string   `json:"endTime,omitempty"`     // End time of the sample
+		Goodput     *int     `json:"goodput,omitempty"`     // Number of useful information bits delivered
+		Jitter      *float64 `json:"jitter,omitempty"`      // Jitter, in milliseconds
+		LatencyMs   *float64 `json:"latencyMs,omitempty"`   // Latency in milliseconds
+		LossPercent *float64 `json:"lossPercent,omitempty"` // Percentage of packets lost
+		StartTime   string   `json:"startTime,omitempty"`   // Start time of the sample
+	}
+)
 type ResponseDevicesGetDeviceManagementInterface struct {
 	DdnsHostnames *ResponseDevicesGetDeviceManagementInterfaceDdnsHostnames `json:"ddnsHostnames,omitempty"` // Dynamic DNS hostnames.
 	Wan1          *ResponseDevicesGetDeviceManagementInterfaceWan1          `json:"wan1,omitempty"`          // WAN 1 settings
@@ -522,24 +527,26 @@ type ResponseDevicesUpdateDeviceManagementInterfaceWan2 struct {
 type ResponseDevicesRebootDevice struct {
 	Success *bool `json:"success,omitempty"` // Shows the success of the reboot
 }
-type ResponseDevicesGetNetworkDevices []ResponseItemDevicesGetNetworkDevices // Array of ResponseDevicesGetNetworkDevices
-type ResponseItemDevicesGetNetworkDevices struct {
-	Address        string                                              `json:"address,omitempty"`        // Physical address of the device
-	BeaconIDParams *ResponseItemDevicesGetNetworkDevicesBeaconIDParams `json:"beaconIdParams,omitempty"` // Beacon Id parameters with an identifier and major and minor versions
-	Details        *[]ResponseItemDevicesGetNetworkDevicesDetails      `json:"details,omitempty"`        // Additional device information
-	Firmware       string                                              `json:"firmware,omitempty"`       // Firmware version of the device
-	FloorPlanID    string                                              `json:"floorPlanId,omitempty"`    // The floor plan to associate to this device. null disassociates the device from the floorplan.
-	LanIP          string                                              `json:"lanIp,omitempty"`          // LAN IP address of the device
-	Lat            *float64                                            `json:"lat,omitempty"`            // Latitude of the device
-	Lng            *float64                                            `json:"lng,omitempty"`            // Longitude of the device
-	Mac            string                                              `json:"mac,omitempty"`            // MAC address of the device
-	Model          string                                              `json:"model,omitempty"`          // Model of the device
-	Name           string                                              `json:"name,omitempty"`           // Name of the device
-	NetworkID      string                                              `json:"networkId,omitempty"`      // ID of the network the device belongs to
-	Notes          string                                              `json:"notes,omitempty"`          // Notes for the device, limited to 255 characters
-	Serial         string                                              `json:"serial,omitempty"`         // Serial number of the device
-	Tags           []string                                            `json:"tags,omitempty"`           // List of tags assigned to the device
-}
+type (
+	ResponseDevicesGetNetworkDevices     []ResponseItemDevicesGetNetworkDevices // Array of ResponseDevicesGetNetworkDevices
+	ResponseItemDevicesGetNetworkDevices struct {
+		Address        string                                              `json:"address,omitempty"`        // Physical address of the device
+		BeaconIDParams *ResponseItemDevicesGetNetworkDevicesBeaconIDParams `json:"beaconIdParams,omitempty"` // Beacon Id parameters with an identifier and major and minor versions
+		Details        *[]ResponseItemDevicesGetNetworkDevicesDetails      `json:"details,omitempty"`        // Additional device information
+		Firmware       string                                              `json:"firmware,omitempty"`       // Firmware version of the device
+		FloorPlanID    string                                              `json:"floorPlanId,omitempty"`    // The floor plan to associate to this device. null disassociates the device from the floorplan.
+		LanIP          string                                              `json:"lanIp,omitempty"`          // LAN IP address of the device
+		Lat            *float64                                            `json:"lat,omitempty"`            // Latitude of the device
+		Lng            *float64                                            `json:"lng,omitempty"`            // Longitude of the device
+		Mac            string                                              `json:"mac,omitempty"`            // MAC address of the device
+		Model          string                                              `json:"model,omitempty"`          // Model of the device
+		Name           string                                              `json:"name,omitempty"`           // Name of the device
+		NetworkID      string                                              `json:"networkId,omitempty"`      // ID of the network the device belongs to
+		Notes          string                                              `json:"notes,omitempty"`          // Notes for the device, limited to 255 characters
+		Serial         string                                              `json:"serial,omitempty"`         // Serial number of the device
+		Tags           []string                                            `json:"tags,omitempty"`           // List of tags assigned to the device
+	}
+)
 type ResponseItemDevicesGetNetworkDevicesBeaconIDParams struct {
 	Major *int   `json:"major,omitempty"` // The major number to be used in the beacon identifier
 	Minor *int   `json:"minor,omitempty"` // The minor number to be used in the beacon identifier
@@ -584,24 +591,28 @@ type ResponseDevicesBatchNetworkFloorPlansDevicesUpdate struct {
 type ResponseDevicesCheckinNetworkSmDevices struct {
 	IDs []string `json:"ids,omitempty"` // The Meraki Ids of the set of devices.
 }
-type ResponseDevicesUpdateNetworkSmDevicesFields []ResponseItemDevicesUpdateNetworkSmDevicesFields // Array of ResponseDevicesUpdateNetworkSmDevicesFields
-type ResponseItemDevicesUpdateNetworkSmDevicesFields struct {
-	ID      string `json:"id,omitempty"`      // The Meraki Id of the device record.
-	Name    string `json:"name,omitempty"`    // The name of the device.
-	Notes   string `json:"notes,omitempty"`   // Notes associated with the device.
-	Serial  string `json:"serial,omitempty"`  // The device serial.
-	WifiMac string `json:"wifiMac,omitempty"` // The MAC of the device.
-}
+type (
+	ResponseDevicesUpdateNetworkSmDevicesFields     []ResponseItemDevicesUpdateNetworkSmDevicesFields // Array of ResponseDevicesUpdateNetworkSmDevicesFields
+	ResponseItemDevicesUpdateNetworkSmDevicesFields struct {
+		ID      string `json:"id,omitempty"`      // The Meraki Id of the device record.
+		Name    string `json:"name,omitempty"`    // The name of the device.
+		Notes   string `json:"notes,omitempty"`   // Notes associated with the device.
+		Serial  string `json:"serial,omitempty"`  // The device serial.
+		WifiMac string `json:"wifiMac,omitempty"` // The MAC of the device.
+	}
+)
 type ResponseDevicesLockNetworkSmDevices struct {
 	IDs []string `json:"ids,omitempty"` // The Meraki Ids of the set of devices.
 }
-type ResponseDevicesModifyNetworkSmDevicesTags []ResponseItemDevicesModifyNetworkSmDevicesTags // Array of ResponseDevicesModifyNetworkSmDevicesTags
-type ResponseItemDevicesModifyNetworkSmDevicesTags struct {
-	ID      string   `json:"id,omitempty"`      // The Meraki Id of the device record.
-	Serial  string   `json:"serial,omitempty"`  // The device serial.
-	Tags    []string `json:"tags,omitempty"`    // An array of tags associated with the device.
-	WifiMac string   `json:"wifiMac,omitempty"` // The MAC of the device.
-}
+type (
+	ResponseDevicesModifyNetworkSmDevicesTags     []ResponseItemDevicesModifyNetworkSmDevicesTags // Array of ResponseDevicesModifyNetworkSmDevicesTags
+	ResponseItemDevicesModifyNetworkSmDevicesTags struct {
+		ID      string   `json:"id,omitempty"`      // The Meraki Id of the device record.
+		Serial  string   `json:"serial,omitempty"`  // The device serial.
+		Tags    []string `json:"tags,omitempty"`    // An array of tags associated with the device.
+		WifiMac string   `json:"wifiMac,omitempty"` // The MAC of the device.
+	}
+)
 type ResponseDevicesMoveNetworkSmDevices struct {
 	IDs        []string `json:"ids,omitempty"`        // The Meraki Ids of the set of devices.
 	NewNetwork string   `json:"newNetwork,omitempty"` // The network to which the devices was moved.
@@ -615,111 +626,129 @@ type ResponseDevicesShutdownNetworkSmDevices struct {
 type ResponseDevicesWipeNetworkSmDevices struct {
 	ID string `json:"id,omitempty"` // The Meraki Id of the devices.
 }
-type ResponseDevicesGetNetworkSmDeviceCellularUsageHistory []ResponseItemDevicesGetNetworkSmDeviceCellularUsageHistory // Array of ResponseDevicesGetNetworkSmDeviceCellularUsageHistory
-type ResponseItemDevicesGetNetworkSmDeviceCellularUsageHistory struct {
-	Received *float64 `json:"received,omitempty"` // The amount of cellular data received by the device.
-	Sent     *float64 `json:"sent,omitempty"`     // The amount of cellular sent received by the device.
-	Ts       string   `json:"ts,omitempty"`       // When the cellular usage data was collected.
-}
-type ResponseDevicesGetNetworkSmDeviceCerts []ResponseItemDevicesGetNetworkSmDeviceCerts // Array of ResponseDevicesGetNetworkSmDeviceCerts
-type ResponseItemDevicesGetNetworkSmDeviceCerts struct {
-	CertPem        string `json:"certPem,omitempty"`        // The PEM of the certificate.
-	DeviceID       string `json:"deviceId,omitempty"`       // The Meraki managed device Id.
-	ID             string `json:"id,omitempty"`             // The Meraki Id of the certificate record.
-	Issuer         string `json:"issuer,omitempty"`         // The certificate issuer.
-	Name           string `json:"name,omitempty"`           // The name of the certificate.
-	NotValidAfter  string `json:"notValidAfter,omitempty"`  // The date after which the certificate is no longer valid.
-	NotValidBefore string `json:"notValidBefore,omitempty"` // The date before which the certificate is not valid.
-	Subject        string `json:"subject,omitempty"`        // The subject of the certificate.
-}
-type ResponseDevicesGetNetworkSmDeviceDeviceProfiles []ResponseItemDevicesGetNetworkSmDeviceDeviceProfiles // Array of ResponseDevicesGetNetworkSmDeviceDeviceProfiles
-type ResponseItemDevicesGetNetworkSmDeviceDeviceProfiles struct {
-	DeviceID          string `json:"deviceId,omitempty"`          // The Meraki managed device Id.
-	ID                string `json:"id,omitempty"`                // The numerical Meraki Id of the profile.
-	IsEncrypted       *bool  `json:"isEncrypted,omitempty"`       // A boolean indicating if the profile is encrypted.
-	IsManaged         *bool  `json:"isManaged,omitempty"`         // Whether or not the profile is managed by Meraki.
-	Name              string `json:"name,omitempty"`              // The name of the profile.
-	ProfileData       string `json:"profileData,omitempty"`       // A string containing a JSON object with the profile data.
-	ProfileIDentifier string `json:"profileIdentifier,omitempty"` // The identifier of the profile.
-	Version           string `json:"version,omitempty"`           // The verison of the profile.
-}
-type ResponseDevicesInstallNetworkSmDeviceApps interface{}
-type ResponseDevicesGetNetworkSmDeviceNetworkAdapters []ResponseItemDevicesGetNetworkSmDeviceNetworkAdapters // Array of ResponseDevicesGetNetworkSmDeviceNetworkAdapters
-type ResponseItemDevicesGetNetworkSmDeviceNetworkAdapters struct {
-	DhcpServer string `json:"dhcpServer,omitempty"` // The IP address of the DCHP Server.
-	DNSServer  string `json:"dnsServer,omitempty"`  // The IP address of the DNS Server.
-	Gateway    string `json:"gateway,omitempty"`    // The IP address of the Gateway.
-	ID         string `json:"id,omitempty"`         // The Meraki Id of the network adapter record.
-	IP         string `json:"ip,omitempty"`         // The IP address of the network adapter.
-	Mac        string `json:"mac,omitempty"`        // The MAC associated with the network adapter.
-	Name       string `json:"name,omitempty"`       // The name of the newtwork adapter.
-	Subnet     string `json:"subnet,omitempty"`     // The subnet for the network adapter.
-}
-type ResponseDevicesRefreshNetworkSmDeviceDetails interface{}
-type ResponseDevicesGetNetworkSmDeviceRestrictions struct {
-	Restrictions *[]ResponseDevicesGetNetworkSmDeviceRestrictionsRestrictions `json:"restrictions,omitempty"` // The list of restrictions for the device
-}
+type (
+	ResponseDevicesGetNetworkSmDeviceCellularUsageHistory     []ResponseItemDevicesGetNetworkSmDeviceCellularUsageHistory // Array of ResponseDevicesGetNetworkSmDeviceCellularUsageHistory
+	ResponseItemDevicesGetNetworkSmDeviceCellularUsageHistory struct {
+		Received *float64 `json:"received,omitempty"` // The amount of cellular data received by the device.
+		Sent     *float64 `json:"sent,omitempty"`     // The amount of cellular sent received by the device.
+		Ts       string   `json:"ts,omitempty"`       // When the cellular usage data was collected.
+	}
+)
+type (
+	ResponseDevicesGetNetworkSmDeviceCerts     []ResponseItemDevicesGetNetworkSmDeviceCerts // Array of ResponseDevicesGetNetworkSmDeviceCerts
+	ResponseItemDevicesGetNetworkSmDeviceCerts struct {
+		CertPem        string `json:"certPem,omitempty"`        // The PEM of the certificate.
+		DeviceID       string `json:"deviceId,omitempty"`       // The Meraki managed device Id.
+		ID             string `json:"id,omitempty"`             // The Meraki Id of the certificate record.
+		Issuer         string `json:"issuer,omitempty"`         // The certificate issuer.
+		Name           string `json:"name,omitempty"`           // The name of the certificate.
+		NotValidAfter  string `json:"notValidAfter,omitempty"`  // The date after which the certificate is no longer valid.
+		NotValidBefore string `json:"notValidBefore,omitempty"` // The date before which the certificate is not valid.
+		Subject        string `json:"subject,omitempty"`        // The subject of the certificate.
+	}
+)
+type (
+	ResponseDevicesGetNetworkSmDeviceDeviceProfiles     []ResponseItemDevicesGetNetworkSmDeviceDeviceProfiles // Array of ResponseDevicesGetNetworkSmDeviceDeviceProfiles
+	ResponseItemDevicesGetNetworkSmDeviceDeviceProfiles struct {
+		DeviceID          string `json:"deviceId,omitempty"`          // The Meraki managed device Id.
+		ID                string `json:"id,omitempty"`                // The numerical Meraki Id of the profile.
+		IsEncrypted       *bool  `json:"isEncrypted,omitempty"`       // A boolean indicating if the profile is encrypted.
+		IsManaged         *bool  `json:"isManaged,omitempty"`         // Whether or not the profile is managed by Meraki.
+		Name              string `json:"name,omitempty"`              // The name of the profile.
+		ProfileData       string `json:"profileData,omitempty"`       // A string containing a JSON object with the profile data.
+		ProfileIDentifier string `json:"profileIdentifier,omitempty"` // The identifier of the profile.
+		Version           string `json:"version,omitempty"`           // The verison of the profile.
+	}
+)
+type (
+	ResponseDevicesInstallNetworkSmDeviceApps            interface{}
+	ResponseDevicesGetNetworkSmDeviceNetworkAdapters     []ResponseItemDevicesGetNetworkSmDeviceNetworkAdapters // Array of ResponseDevicesGetNetworkSmDeviceNetworkAdapters
+	ResponseItemDevicesGetNetworkSmDeviceNetworkAdapters struct {
+		DhcpServer string `json:"dhcpServer,omitempty"` // The IP address of the DCHP Server.
+		DNSServer  string `json:"dnsServer,omitempty"`  // The IP address of the DNS Server.
+		Gateway    string `json:"gateway,omitempty"`    // The IP address of the Gateway.
+		ID         string `json:"id,omitempty"`         // The Meraki Id of the network adapter record.
+		IP         string `json:"ip,omitempty"`         // The IP address of the network adapter.
+		Mac        string `json:"mac,omitempty"`        // The MAC associated with the network adapter.
+		Name       string `json:"name,omitempty"`       // The name of the newtwork adapter.
+		Subnet     string `json:"subnet,omitempty"`     // The subnet for the network adapter.
+	}
+)
+type (
+	ResponseDevicesRefreshNetworkSmDeviceDetails  interface{}
+	ResponseDevicesGetNetworkSmDeviceRestrictions struct {
+		Restrictions *[]ResponseDevicesGetNetworkSmDeviceRestrictionsRestrictions `json:"restrictions,omitempty"` // The list of restrictions for the device
+	}
+)
 type ResponseDevicesGetNetworkSmDeviceRestrictionsRestrictions struct {
 	Profile      string                                                                 `json:"profile,omitempty"`      // The profile identifier.
 	Restrictions *ResponseDevicesGetNetworkSmDeviceRestrictionsRestrictionsRestrictions `json:"restrictions,omitempty"` // The restrictions for the profile.
 }
-type ResponseDevicesGetNetworkSmDeviceRestrictionsRestrictionsRestrictions interface{}
-type ResponseDevicesGetNetworkSmDeviceSecurityCenters []ResponseItemDevicesGetNetworkSmDeviceSecurityCenters // Array of ResponseDevicesGetNetworkSmDeviceSecurityCenters
-type ResponseItemDevicesGetNetworkSmDeviceSecurityCenters struct {
-	AntiVirusName        string `json:"antiVirusName,omitempty"`        // The name of the Antivirus.
-	FireWallName         string `json:"fireWallName,omitempty"`         // The name of the Firewall.
-	HasAntiVirus         *bool  `json:"hasAntiVirus,omitempty"`         // Boolean indicating if the device has Antivirus.
-	HasFireWallInstalled *bool  `json:"hasFireWallInstalled,omitempty"` // Boolean indicating if the device has a Firewall installed.
-	ID                   string `json:"id,omitempty"`                   // The Meraki identifier for the security center record.
-	IsAutoLoginDisabled  *bool  `json:"isAutoLoginDisabled,omitempty"`  // Boolean indicating if the device has auto login disabled.
-	IsDiskEncrypted      *bool  `json:"isDiskEncrypted,omitempty"`      // Boolean indicating if the device has disk encryption.
-	IsFireWallEnabled    *bool  `json:"isFireWallEnabled,omitempty"`    // Boolean indicating if the device has a Firewall enabled.
-	IsRooted             *bool  `json:"isRooted,omitempty"`             // Boolean indicating if the device is rooted.
-	RunningProcs         string `json:"runningProcs,omitempty"`         // A comma seperated list of procs running on the device.
-}
-type ResponseDevicesGetNetworkSmDeviceSoftwares []ResponseItemDevicesGetNetworkSmDeviceSoftwares // Array of ResponseDevicesGetNetworkSmDeviceSoftwares
-type ResponseItemDevicesGetNetworkSmDeviceSoftwares struct {
-	AppID             string `json:"appId,omitempty"`             // The Meraki managed application Id for this record on a particular device.
-	BundleSize        *int   `json:"bundleSize,omitempty"`        // The size of the software bundle.
-	CreatedAt         string `json:"createdAt,omitempty"`         // When the Meraki record for the software was created.
-	DeviceID          string `json:"deviceId,omitempty"`          // The Meraki managed device Id.
-	DynamicSize       *int   `json:"dynamicSize,omitempty"`       // The size of the data stored in the application.
-	ID                string `json:"id,omitempty"`                // The Meraki software Id.
-	IDentifier        string `json:"identifier,omitempty"`        // Software bundle identifier.
-	InstalledAt       string `json:"installedAt,omitempty"`       // When the Software was installed on the device.
-	IosRedemptionCode *bool  `json:"iosRedemptionCode,omitempty"` // A boolean indicating whether or not an iOS redemption code was used.
-	IsManaged         *bool  `json:"isManaged,omitempty"`         // A boolean indicating whether or not the software is managed by Meraki.
-	ItunesID          string `json:"itunesId,omitempty"`          // The itunes numerical identifier.
-	LicenseKey        string `json:"licenseKey,omitempty"`        // The license key associated with this software installation.
-	Name              string `json:"name,omitempty"`              // The name of the software.
-	Path              string `json:"path,omitempty"`              // The path on the device where the software record is located.
-	RedemptionCode    *int   `json:"redemptionCode,omitempty"`    // The redemption code used for this software.
-	ShortVersion      string `json:"shortVersion,omitempty"`      // Short version notation for the software.
-	Status            string `json:"status,omitempty"`            // The management status of the software.
-	ToInstall         *bool  `json:"toInstall,omitempty"`         // A boolean indicating this software record should be installed on the associated device.
-	ToUninstall       *bool  `json:"toUninstall,omitempty"`       // A boolean indicating this software record should be uninstalled on the associated device.
-	UninstalledAt     string `json:"uninstalledAt,omitempty"`     // When the record was uninstalled from the device.
-	UpdatedAt         string `json:"updatedAt,omitempty"`         // When the record was last updated by Meraki.
-	Vendor            string `json:"vendor,omitempty"`            // The vendor of the software.
-	Version           string `json:"version,omitempty"`           // Full version notation for the software.
-}
+type (
+	ResponseDevicesGetNetworkSmDeviceRestrictionsRestrictionsRestrictions interface{}
+	ResponseDevicesGetNetworkSmDeviceSecurityCenters                      []ResponseItemDevicesGetNetworkSmDeviceSecurityCenters // Array of ResponseDevicesGetNetworkSmDeviceSecurityCenters
+	ResponseItemDevicesGetNetworkSmDeviceSecurityCenters                  struct {
+		AntiVirusName        string `json:"antiVirusName,omitempty"`        // The name of the Antivirus.
+		FireWallName         string `json:"fireWallName,omitempty"`         // The name of the Firewall.
+		HasAntiVirus         *bool  `json:"hasAntiVirus,omitempty"`         // Boolean indicating if the device has Antivirus.
+		HasFireWallInstalled *bool  `json:"hasFireWallInstalled,omitempty"` // Boolean indicating if the device has a Firewall installed.
+		ID                   string `json:"id,omitempty"`                   // The Meraki identifier for the security center record.
+		IsAutoLoginDisabled  *bool  `json:"isAutoLoginDisabled,omitempty"`  // Boolean indicating if the device has auto login disabled.
+		IsDiskEncrypted      *bool  `json:"isDiskEncrypted,omitempty"`      // Boolean indicating if the device has disk encryption.
+		IsFireWallEnabled    *bool  `json:"isFireWallEnabled,omitempty"`    // Boolean indicating if the device has a Firewall enabled.
+		IsRooted             *bool  `json:"isRooted,omitempty"`             // Boolean indicating if the device is rooted.
+		RunningProcs         string `json:"runningProcs,omitempty"`         // A comma seperated list of procs running on the device.
+	}
+)
+type (
+	ResponseDevicesGetNetworkSmDeviceSoftwares     []ResponseItemDevicesGetNetworkSmDeviceSoftwares // Array of ResponseDevicesGetNetworkSmDeviceSoftwares
+	ResponseItemDevicesGetNetworkSmDeviceSoftwares struct {
+		AppID             string `json:"appId,omitempty"`             // The Meraki managed application Id for this record on a particular device.
+		BundleSize        *int   `json:"bundleSize,omitempty"`        // The size of the software bundle.
+		CreatedAt         string `json:"createdAt,omitempty"`         // When the Meraki record for the software was created.
+		DeviceID          string `json:"deviceId,omitempty"`          // The Meraki managed device Id.
+		DynamicSize       *int   `json:"dynamicSize,omitempty"`       // The size of the data stored in the application.
+		ID                string `json:"id,omitempty"`                // The Meraki software Id.
+		IDentifier        string `json:"identifier,omitempty"`        // Software bundle identifier.
+		InstalledAt       string `json:"installedAt,omitempty"`       // When the Software was installed on the device.
+		IosRedemptionCode *bool  `json:"iosRedemptionCode,omitempty"` // A boolean indicating whether or not an iOS redemption code was used.
+		IsManaged         *bool  `json:"isManaged,omitempty"`         // A boolean indicating whether or not the software is managed by Meraki.
+		ItunesID          string `json:"itunesId,omitempty"`          // The itunes numerical identifier.
+		LicenseKey        string `json:"licenseKey,omitempty"`        // The license key associated with this software installation.
+		Name              string `json:"name,omitempty"`              // The name of the software.
+		Path              string `json:"path,omitempty"`              // The path on the device where the software record is located.
+		RedemptionCode    *int   `json:"redemptionCode,omitempty"`    // The redemption code used for this software.
+		ShortVersion      string `json:"shortVersion,omitempty"`      // Short version notation for the software.
+		Status            string `json:"status,omitempty"`            // The management status of the software.
+		ToInstall         *bool  `json:"toInstall,omitempty"`         // A boolean indicating this software record should be installed on the associated device.
+		ToUninstall       *bool  `json:"toUninstall,omitempty"`       // A boolean indicating this software record should be uninstalled on the associated device.
+		UninstalledAt     string `json:"uninstalledAt,omitempty"`     // When the record was uninstalled from the device.
+		UpdatedAt         string `json:"updatedAt,omitempty"`         // When the record was last updated by Meraki.
+		Vendor            string `json:"vendor,omitempty"`            // The vendor of the software.
+		Version           string `json:"version,omitempty"`           // Full version notation for the software.
+	}
+)
 type ResponseDevicesUnenrollNetworkSmDevice struct {
 	Success *bool `json:"success,omitempty"` // Boolean indicating whether the operation was completed successfully.
 }
-type ResponseDevicesUninstallNetworkSmDeviceApps interface{}
-type ResponseDevicesGetNetworkSmDeviceWLANLists []ResponseItemDevicesGetNetworkSmDeviceWLANLists // Array of ResponseDevicesGetNetworkSmDeviceWlanLists
-type ResponseItemDevicesGetNetworkSmDeviceWLANLists struct {
-	CreatedAt string `json:"createdAt,omitempty"` // When the Meraki record for the wlanList was created.
-	ID        string `json:"id,omitempty"`        // The Meraki managed Id of the wlanList record.
-	Xml       string `json:"xml,omitempty"`       // An XML string containing the WLAN List for the device.
-}
-type ResponseDevicesGetOrganizationDevicesAvailabilitiesChangeHistory []ResponseItemDevicesGetOrganizationDevicesAvailabilitiesChangeHistory // Array of ResponseDevicesGetOrganizationDevicesAvailabilitiesChangeHistory
-type ResponseItemDevicesGetOrganizationDevicesAvailabilitiesChangeHistory struct {
-	Details *ResponseItemDevicesGetOrganizationDevicesAvailabilitiesChangeHistoryDetails `json:"details,omitempty"` // Details about the status changes
-	Device  *ResponseItemDevicesGetOrganizationDevicesAvailabilitiesChangeHistoryDevice  `json:"device,omitempty"`  // Device information
-	Network *ResponseItemDevicesGetOrganizationDevicesAvailabilitiesChangeHistoryNetwork `json:"network,omitempty"` // Network information
-	Ts      string                                                                       `json:"ts,omitempty"`      // Timestamp, in iso8601 format, at which the event happened
-}
+type (
+	ResponseDevicesUninstallNetworkSmDeviceApps    interface{}
+	ResponseDevicesGetNetworkSmDeviceWLANLists     []ResponseItemDevicesGetNetworkSmDeviceWLANLists // Array of ResponseDevicesGetNetworkSmDeviceWlanLists
+	ResponseItemDevicesGetNetworkSmDeviceWLANLists struct {
+		CreatedAt string `json:"createdAt,omitempty"` // When the Meraki record for the wlanList was created.
+		ID        string `json:"id,omitempty"`        // The Meraki managed Id of the wlanList record.
+		Xml       string `json:"xml,omitempty"`       // An XML string containing the WLAN List for the device.
+	}
+)
+type (
+	ResponseDevicesGetOrganizationDevicesAvailabilitiesChangeHistory     []ResponseItemDevicesGetOrganizationDevicesAvailabilitiesChangeHistory // Array of ResponseDevicesGetOrganizationDevicesAvailabilitiesChangeHistory
+	ResponseItemDevicesGetOrganizationDevicesAvailabilitiesChangeHistory struct {
+		Details *ResponseItemDevicesGetOrganizationDevicesAvailabilitiesChangeHistoryDetails `json:"details,omitempty"` // Details about the status changes
+		Device  *ResponseItemDevicesGetOrganizationDevicesAvailabilitiesChangeHistoryDevice  `json:"device,omitempty"`  // Device information
+		Network *ResponseItemDevicesGetOrganizationDevicesAvailabilitiesChangeHistoryNetwork `json:"network,omitempty"` // Network information
+		Ts      string                                                                       `json:"ts,omitempty"`      // Timestamp, in iso8601 format, at which the event happened
+	}
+)
 type ResponseItemDevicesGetOrganizationDevicesAvailabilitiesChangeHistoryDetails struct {
 	New *[]ResponseItemDevicesGetOrganizationDevicesAvailabilitiesChangeHistoryDetailsNew `json:"new,omitempty"` // Details about the new status
 	Old *[]ResponseItemDevicesGetOrganizationDevicesAvailabilitiesChangeHistoryDetailsOld `json:"old,omitempty"` // Details about the old status
@@ -764,13 +793,15 @@ type ResponseDevicesGetOrganizationDevicesControllerMigrationsMetaCountsItems st
 	Remaining *int `json:"remaining,omitempty"` // The number of items in the dataset that are available on subsequent pages
 	Total     *int `json:"total,omitempty"`     // The total number of items in the dataset
 }
-type ResponseDevicesCreateOrganizationDevicesControllerMigration []ResponseItemDevicesCreateOrganizationDevicesControllerMigration // Array of ResponseDevicesCreateOrganizationDevicesControllerMigration
-type ResponseItemDevicesCreateOrganizationDevicesControllerMigration struct {
-	CreatedAt  string `json:"createdAt,omitempty"`  // The time at which a migration was created
-	MigratedAt string `json:"migratedAt,omitempty"` // The time at which the device initiated migration
-	Serial     string `json:"serial,omitempty"`     // The device serial
-	Target     string `json:"target,omitempty"`     // The migration target destination
-}
+type (
+	ResponseDevicesCreateOrganizationDevicesControllerMigration     []ResponseItemDevicesCreateOrganizationDevicesControllerMigration // Array of ResponseDevicesCreateOrganizationDevicesControllerMigration
+	ResponseItemDevicesCreateOrganizationDevicesControllerMigration struct {
+		CreatedAt  string `json:"createdAt,omitempty"`  // The time at which a migration was created
+		MigratedAt string `json:"migratedAt,omitempty"` // The time at which the device initiated migration
+		Serial     string `json:"serial,omitempty"`     // The device serial
+		Target     string `json:"target,omitempty"`     // The migration target destination
+	}
+)
 type ResponseDevicesBulkUpdateOrganizationDevicesDetails struct {
 	Serials []string `json:"serials,omitempty"` // A list of serials of devices updated
 }
@@ -821,11 +852,13 @@ type ResponseDevicesGetOrganizationDevicesSystemMemoryUsageHistoryByIntervalMeta
 	Remaining *int `json:"remaining,omitempty"` // The number of serials remaining based on current pagination location within the dataset.
 	Total     *int `json:"total,omitempty"`     // The total number of serials.
 }
-type ResponseDevicesGetOrganizationFloorPlansAutoLocateDevices []ResponseItemDevicesGetOrganizationFloorPlansAutoLocateDevices // Array of ResponseDevicesGetOrganizationFloorPlansAutoLocateDevices
-type ResponseItemDevicesGetOrganizationFloorPlansAutoLocateDevices struct {
-	Items *[]ResponseItemDevicesGetOrganizationFloorPlansAutoLocateDevicesItems `json:"items,omitempty"` // Items in the paginated dataset
-	Meta  *ResponseItemDevicesGetOrganizationFloorPlansAutoLocateDevicesMeta    `json:"meta,omitempty"`  // Metadata relevant to the paginated dataset
-}
+type (
+	ResponseDevicesGetOrganizationFloorPlansAutoLocateDevices     []ResponseItemDevicesGetOrganizationFloorPlansAutoLocateDevices // Array of ResponseDevicesGetOrganizationFloorPlansAutoLocateDevices
+	ResponseItemDevicesGetOrganizationFloorPlansAutoLocateDevices struct {
+		Items *[]ResponseItemDevicesGetOrganizationFloorPlansAutoLocateDevicesItems `json:"items,omitempty"` // Items in the paginated dataset
+		Meta  *ResponseItemDevicesGetOrganizationFloorPlansAutoLocateDevicesMeta    `json:"meta,omitempty"`  // Metadata relevant to the paginated dataset
+	}
+)
 type ResponseItemDevicesGetOrganizationFloorPlansAutoLocateDevicesItems struct {
 	AutoLocate *ResponseItemDevicesGetOrganizationFloorPlansAutoLocateDevicesItemsAutoLocate `json:"autoLocate,omitempty"` // The auto locate position for this device
 	FloorPlan  *ResponseItemDevicesGetOrganizationFloorPlansAutoLocateDevicesItemsFloorPlan  `json:"floorPlan,omitempty"`  // The assigned floor plan for this device
@@ -942,13 +975,15 @@ type ResponseDevicesCloneOrganizationSwitchDevices struct {
 	SourceSerial  string   `json:"sourceSerial,omitempty"`  // Serial number of the source switch (must be on a network not bound to a template)
 	TargetSerials []string `json:"targetSerials,omitempty"` // Array of serial numbers of one or more target switches (must be on a network not bound to a template)
 }
-type ResponseDevicesGetOrganizationWirelessDevicesChannelUtilizationByDevice []ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationByDevice // Array of ResponseDevicesGetOrganizationWirelessDevicesChannelUtilizationByDevice
-type ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationByDevice struct {
-	ByBand  *[]ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationByDeviceByBand `json:"byBand,omitempty"`  // Channel utilization broken down by band.
-	Mac     string                                                                               `json:"mac,omitempty"`     // The MAC address of the device.
-	Network *ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationByDeviceNetwork  `json:"network,omitempty"` // Network for the given utilization metrics.
-	Serial  string                                                                               `json:"serial,omitempty"`  // The serial number for the device.
-}
+type (
+	ResponseDevicesGetOrganizationWirelessDevicesChannelUtilizationByDevice     []ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationByDevice // Array of ResponseDevicesGetOrganizationWirelessDevicesChannelUtilizationByDevice
+	ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationByDevice struct {
+		ByBand  *[]ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationByDeviceByBand `json:"byBand,omitempty"`  // Channel utilization broken down by band.
+		Mac     string                                                                               `json:"mac,omitempty"`     // The MAC address of the device.
+		Network *ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationByDeviceNetwork  `json:"network,omitempty"` // Network for the given utilization metrics.
+		Serial  string                                                                               `json:"serial,omitempty"`  // The serial number for the device.
+	}
+)
 type ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationByDeviceByBand struct {
 	Band    string                                                                                    `json:"band,omitempty"`    // The band for the given metrics.
 	NonWifi *ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationByDeviceByBandNonWifi `json:"nonWifi,omitempty"` // An object containing non-wifi utilization.
@@ -967,11 +1002,13 @@ type ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationByDevice
 type ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationByDeviceNetwork struct {
 	ID string `json:"id,omitempty"` // Network ID of the given utilization metrics.
 }
-type ResponseDevicesGetOrganizationWirelessDevicesChannelUtilizationByNetwork []ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationByNetwork // Array of ResponseDevicesGetOrganizationWirelessDevicesChannelUtilizationByNetwork
-type ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationByNetwork struct {
-	ByBand  *[]ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationByNetworkByBand `json:"byBand,omitempty"`  // Channel utilization broken down by band.
-	Network *ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationByNetworkNetwork  `json:"network,omitempty"` // Network for the given utilization metrics.
-}
+type (
+	ResponseDevicesGetOrganizationWirelessDevicesChannelUtilizationByNetwork     []ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationByNetwork // Array of ResponseDevicesGetOrganizationWirelessDevicesChannelUtilizationByNetwork
+	ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationByNetwork struct {
+		ByBand  *[]ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationByNetworkByBand `json:"byBand,omitempty"`  // Channel utilization broken down by band.
+		Network *ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationByNetworkNetwork  `json:"network,omitempty"` // Network for the given utilization metrics.
+	}
+)
 type ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationByNetworkByBand struct {
 	Band    string                                                                                     `json:"band,omitempty"`    // The band for the given metrics.
 	NonWifi *ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationByNetworkByBandNonWifi `json:"nonWifi,omitempty"` // An object containing non-wifi utilization.
@@ -990,15 +1027,17 @@ type ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationByNetwor
 type ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationByNetworkNetwork struct {
 	ID string `json:"id,omitempty"` // Network ID of the given utilization metrics.
 }
-type ResponseDevicesGetOrganizationWirelessDevicesChannelUtilizationHistoryByDeviceByInterval []ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationHistoryByDeviceByInterval // Array of ResponseDevicesGetOrganizationWirelessDevicesChannelUtilizationHistoryByDeviceByInterval
-type ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationHistoryByDeviceByInterval struct {
-	ByBand  *[]ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationHistoryByDeviceByIntervalByBand `json:"byBand,omitempty"`  // Channel utilization broken down by band.
-	EndTs   string                                                                                                `json:"endTs,omitempty"`   // The end time of the channel utilization interval.
-	Mac     string                                                                                                `json:"mac,omitempty"`     // The MAC address of the device.
-	Network *ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationHistoryByDeviceByIntervalNetwork  `json:"network,omitempty"` // Network for the given utilization metrics.
-	Serial  string                                                                                                `json:"serial,omitempty"`  // The serial number for the device.
-	StartTs string                                                                                                `json:"startTs,omitempty"` // The start time of the channel utilization interval.
-}
+type (
+	ResponseDevicesGetOrganizationWirelessDevicesChannelUtilizationHistoryByDeviceByInterval     []ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationHistoryByDeviceByInterval // Array of ResponseDevicesGetOrganizationWirelessDevicesChannelUtilizationHistoryByDeviceByInterval
+	ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationHistoryByDeviceByInterval struct {
+		ByBand  *[]ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationHistoryByDeviceByIntervalByBand `json:"byBand,omitempty"`  // Channel utilization broken down by band.
+		EndTs   string                                                                                                `json:"endTs,omitempty"`   // The end time of the channel utilization interval.
+		Mac     string                                                                                                `json:"mac,omitempty"`     // The MAC address of the device.
+		Network *ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationHistoryByDeviceByIntervalNetwork  `json:"network,omitempty"` // Network for the given utilization metrics.
+		Serial  string                                                                                                `json:"serial,omitempty"`  // The serial number for the device.
+		StartTs string                                                                                                `json:"startTs,omitempty"` // The start time of the channel utilization interval.
+	}
+)
 type ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationHistoryByDeviceByIntervalByBand struct {
 	Band    string                                                                                                     `json:"band,omitempty"`    // The band for the given metrics.
 	NonWifi *ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationHistoryByDeviceByIntervalByBandNonWifi `json:"nonWifi,omitempty"` // An object containing non-wifi utilization.
@@ -1017,13 +1056,15 @@ type ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationHistoryB
 type ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationHistoryByDeviceByIntervalNetwork struct {
 	ID string `json:"id,omitempty"` // Network ID of the given utilization metrics.
 }
-type ResponseDevicesGetOrganizationWirelessDevicesChannelUtilizationHistoryByNetworkByInterval []ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationHistoryByNetworkByInterval // Array of ResponseDevicesGetOrganizationWirelessDevicesChannelUtilizationHistoryByNetworkByInterval
-type ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationHistoryByNetworkByInterval struct {
-	ByBand  *[]ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationHistoryByNetworkByIntervalByBand `json:"byBand,omitempty"`  // Channel utilization broken down by band.
-	EndTs   string                                                                                                 `json:"endTs,omitempty"`   // The end time of the channel utilization interval.
-	Network *ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationHistoryByNetworkByIntervalNetwork  `json:"network,omitempty"` // Network for the given utilization metrics.
-	StartTs string                                                                                                 `json:"startTs,omitempty"` // The start time of the channel utilization interval.
-}
+type (
+	ResponseDevicesGetOrganizationWirelessDevicesChannelUtilizationHistoryByNetworkByInterval     []ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationHistoryByNetworkByInterval // Array of ResponseDevicesGetOrganizationWirelessDevicesChannelUtilizationHistoryByNetworkByInterval
+	ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationHistoryByNetworkByInterval struct {
+		ByBand  *[]ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationHistoryByNetworkByIntervalByBand `json:"byBand,omitempty"`  // Channel utilization broken down by band.
+		EndTs   string                                                                                                 `json:"endTs,omitempty"`   // The end time of the channel utilization interval.
+		Network *ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationHistoryByNetworkByIntervalNetwork  `json:"network,omitempty"` // Network for the given utilization metrics.
+		StartTs string                                                                                                 `json:"startTs,omitempty"` // The start time of the channel utilization interval.
+	}
+)
 type ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationHistoryByNetworkByIntervalByBand struct {
 	Band    string                                                                                                      `json:"band,omitempty"`    // The band for the given metrics.
 	NonWifi *ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationHistoryByNetworkByIntervalByBandNonWifi `json:"nonWifi,omitempty"` // An object containing non-wifi utilization.
@@ -1042,13 +1083,15 @@ type ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationHistoryB
 type ResponseItemDevicesGetOrganizationWirelessDevicesChannelUtilizationHistoryByNetworkByIntervalNetwork struct {
 	ID string `json:"id,omitempty"` // Network ID of the given utilization metrics.
 }
-type ResponseDevicesGetOrganizationWirelessDevicesPacketLossByClient []ResponseItemDevicesGetOrganizationWirelessDevicesPacketLossByClient // Array of ResponseDevicesGetOrganizationWirelessDevicesPacketLossByClient
-type ResponseItemDevicesGetOrganizationWirelessDevicesPacketLossByClient struct {
-	Client     *ResponseItemDevicesGetOrganizationWirelessDevicesPacketLossByClientClient     `json:"client,omitempty"`     // Client.
-	Downstream *ResponseItemDevicesGetOrganizationWirelessDevicesPacketLossByClientDownstream `json:"downstream,omitempty"` // Packets sent from an AP to a client.
-	Network    *ResponseItemDevicesGetOrganizationWirelessDevicesPacketLossByClientNetwork    `json:"network,omitempty"`    // Network.
-	Upstream   *ResponseItemDevicesGetOrganizationWirelessDevicesPacketLossByClientUpstream   `json:"upstream,omitempty"`   // Packets sent from a client to an AP.
-}
+type (
+	ResponseDevicesGetOrganizationWirelessDevicesPacketLossByClient     []ResponseItemDevicesGetOrganizationWirelessDevicesPacketLossByClient // Array of ResponseDevicesGetOrganizationWirelessDevicesPacketLossByClient
+	ResponseItemDevicesGetOrganizationWirelessDevicesPacketLossByClient struct {
+		Client     *ResponseItemDevicesGetOrganizationWirelessDevicesPacketLossByClientClient     `json:"client,omitempty"`     // Client.
+		Downstream *ResponseItemDevicesGetOrganizationWirelessDevicesPacketLossByClientDownstream `json:"downstream,omitempty"` // Packets sent from an AP to a client.
+		Network    *ResponseItemDevicesGetOrganizationWirelessDevicesPacketLossByClientNetwork    `json:"network,omitempty"`    // Network.
+		Upstream   *ResponseItemDevicesGetOrganizationWirelessDevicesPacketLossByClientUpstream   `json:"upstream,omitempty"`   // Packets sent from a client to an AP.
+	}
+)
 type ResponseItemDevicesGetOrganizationWirelessDevicesPacketLossByClientClient struct {
 	ID  string `json:"id,omitempty"`  // Client ID.
 	Mac string `json:"mac,omitempty"` // MAC address.
@@ -1067,13 +1110,15 @@ type ResponseItemDevicesGetOrganizationWirelessDevicesPacketLossByClientUpstream
 	Lost           *int     `json:"lost,omitempty"`           // Total packets sent by a client and did not reach the AP.
 	Total          *int     `json:"total,omitempty"`          // Total packets sent by a client to an AP.
 }
-type ResponseDevicesGetOrganizationWirelessDevicesPacketLossByDevice []ResponseItemDevicesGetOrganizationWirelessDevicesPacketLossByDevice // Array of ResponseDevicesGetOrganizationWirelessDevicesPacketLossByDevice
-type ResponseItemDevicesGetOrganizationWirelessDevicesPacketLossByDevice struct {
-	Device     *ResponseItemDevicesGetOrganizationWirelessDevicesPacketLossByDeviceDevice     `json:"device,omitempty"`     // Device.
-	Downstream *ResponseItemDevicesGetOrganizationWirelessDevicesPacketLossByDeviceDownstream `json:"downstream,omitempty"` // Packets sent from an AP to a client.
-	Network    *ResponseItemDevicesGetOrganizationWirelessDevicesPacketLossByDeviceNetwork    `json:"network,omitempty"`    // Network.
-	Upstream   *ResponseItemDevicesGetOrganizationWirelessDevicesPacketLossByDeviceUpstream   `json:"upstream,omitempty"`   // Packets sent from a client to an AP.
-}
+type (
+	ResponseDevicesGetOrganizationWirelessDevicesPacketLossByDevice     []ResponseItemDevicesGetOrganizationWirelessDevicesPacketLossByDevice // Array of ResponseDevicesGetOrganizationWirelessDevicesPacketLossByDevice
+	ResponseItemDevicesGetOrganizationWirelessDevicesPacketLossByDevice struct {
+		Device     *ResponseItemDevicesGetOrganizationWirelessDevicesPacketLossByDeviceDevice     `json:"device,omitempty"`     // Device.
+		Downstream *ResponseItemDevicesGetOrganizationWirelessDevicesPacketLossByDeviceDownstream `json:"downstream,omitempty"` // Packets sent from an AP to a client.
+		Network    *ResponseItemDevicesGetOrganizationWirelessDevicesPacketLossByDeviceNetwork    `json:"network,omitempty"`    // Network.
+		Upstream   *ResponseItemDevicesGetOrganizationWirelessDevicesPacketLossByDeviceUpstream   `json:"upstream,omitempty"`   // Packets sent from a client to an AP.
+	}
+)
 type ResponseItemDevicesGetOrganizationWirelessDevicesPacketLossByDeviceDevice struct {
 	Mac    string `json:"mac,omitempty"`    // MAC address
 	Name   string `json:"name,omitempty"`   // Name
@@ -1093,12 +1138,14 @@ type ResponseItemDevicesGetOrganizationWirelessDevicesPacketLossByDeviceUpstream
 	Lost           *int     `json:"lost,omitempty"`           // Total packets sent by a client and did not reach the AP.
 	Total          *int     `json:"total,omitempty"`          // Total packets sent by a client to an AP.
 }
-type ResponseDevicesGetOrganizationWirelessDevicesPacketLossByNetwork []ResponseItemDevicesGetOrganizationWirelessDevicesPacketLossByNetwork // Array of ResponseDevicesGetOrganizationWirelessDevicesPacketLossByNetwork
-type ResponseItemDevicesGetOrganizationWirelessDevicesPacketLossByNetwork struct {
-	Downstream *ResponseItemDevicesGetOrganizationWirelessDevicesPacketLossByNetworkDownstream `json:"downstream,omitempty"` // Packets sent from an AP to a client.
-	Network    *ResponseItemDevicesGetOrganizationWirelessDevicesPacketLossByNetworkNetwork    `json:"network,omitempty"`    // Network.
-	Upstream   *ResponseItemDevicesGetOrganizationWirelessDevicesPacketLossByNetworkUpstream   `json:"upstream,omitempty"`   // Packets sent from a client to an AP.
-}
+type (
+	ResponseDevicesGetOrganizationWirelessDevicesPacketLossByNetwork     []ResponseItemDevicesGetOrganizationWirelessDevicesPacketLossByNetwork // Array of ResponseDevicesGetOrganizationWirelessDevicesPacketLossByNetwork
+	ResponseItemDevicesGetOrganizationWirelessDevicesPacketLossByNetwork struct {
+		Downstream *ResponseItemDevicesGetOrganizationWirelessDevicesPacketLossByNetworkDownstream `json:"downstream,omitempty"` // Packets sent from an AP to a client.
+		Network    *ResponseItemDevicesGetOrganizationWirelessDevicesPacketLossByNetworkNetwork    `json:"network,omitempty"`    // Network.
+		Upstream   *ResponseItemDevicesGetOrganizationWirelessDevicesPacketLossByNetworkUpstream   `json:"upstream,omitempty"`   // Packets sent from a client to an AP.
+	}
+)
 type ResponseItemDevicesGetOrganizationWirelessDevicesPacketLossByNetworkDownstream struct {
 	LossPercentage *float64 `json:"lossPercentage,omitempty"` // Percentage of lost packets.
 	Lost           *int     `json:"lost,omitempty"`           // Total packets sent by an AP that did not reach the client.
@@ -1458,11 +1505,13 @@ type ResponseDevicesGetOrganizationWirelessControllerDevicesInterfacesUsageHisto
 	Remaining *int `json:"remaining,omitempty"` // The number of items in the dataset that are available on subsequent pages
 	Total     *int `json:"total,omitempty"`     // The total number of items in the dataset
 }
-type ResponseDevicesGetOrganizationWirelessControllerDevicesRedundancyFailoverHistory []ResponseItemDevicesGetOrganizationWirelessControllerDevicesRedundancyFailoverHistory // Array of ResponseDevicesGetOrganizationWirelessControllerDevicesRedundancyFailoverHistory
-type ResponseItemDevicesGetOrganizationWirelessControllerDevicesRedundancyFailoverHistory struct {
-	Items *[]ResponseItemDevicesGetOrganizationWirelessControllerDevicesRedundancyFailoverHistoryItems `json:"items,omitempty"` // Wireless LAN controller HA failover events
-	Meta  *ResponseItemDevicesGetOrganizationWirelessControllerDevicesRedundancyFailoverHistoryMeta    `json:"meta,omitempty"`  // Metadata relevant to the paginated dataset
-}
+type (
+	ResponseDevicesGetOrganizationWirelessControllerDevicesRedundancyFailoverHistory     []ResponseItemDevicesGetOrganizationWirelessControllerDevicesRedundancyFailoverHistory // Array of ResponseDevicesGetOrganizationWirelessControllerDevicesRedundancyFailoverHistory
+	ResponseItemDevicesGetOrganizationWirelessControllerDevicesRedundancyFailoverHistory struct {
+		Items *[]ResponseItemDevicesGetOrganizationWirelessControllerDevicesRedundancyFailoverHistoryItems `json:"items,omitempty"` // Wireless LAN controller HA failover events
+		Meta  *ResponseItemDevicesGetOrganizationWirelessControllerDevicesRedundancyFailoverHistoryMeta    `json:"meta,omitempty"`  // Metadata relevant to the paginated dataset
+	}
+)
 type ResponseItemDevicesGetOrganizationWirelessControllerDevicesRedundancyFailoverHistoryItems struct {
 	Active *ResponseItemDevicesGetOrganizationWirelessControllerDevicesRedundancyFailoverHistoryItemsActive `json:"active,omitempty"` // Details about the active unit
 	Failed *ResponseItemDevicesGetOrganizationWirelessControllerDevicesRedundancyFailoverHistoryItemsFailed `json:"failed,omitempty"` // Details about the failed unit
@@ -1933,10 +1982,8 @@ func (s *DevicesService) GetDevice(serial string) (*ResponseDevicesGetDevice, *r
 		SetResult(&ResponseDevicesGetDevice{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -1945,7 +1992,6 @@ func (s *DevicesService) GetDevice(serial string) (*ResponseDevicesGetDevice, *r
 
 	result := response.Result().(*ResponseDevicesGetDevice)
 	return result, response, err
-
 }
 
 //GetDeviceCellularSims Return the SIM and APN configurations for a cellular device.
@@ -1967,10 +2013,8 @@ func (s *DevicesService) GetDeviceCellularSims(serial string) (*ResponseDevicesG
 		SetResult(&ResponseDevicesGetDeviceCellularSims{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -1979,7 +2023,6 @@ func (s *DevicesService) GetDeviceCellularSims(serial string) (*ResponseDevicesG
 
 	result := response.Result().(*ResponseDevicesGetDeviceCellularSims)
 	return result, response, err
-
 }
 
 //GetDeviceClients List the clients of a device, up to a maximum of a month ago
@@ -2004,10 +2047,8 @@ func (s *DevicesService) GetDeviceClients(serial string, getDeviceClientsQueryPa
 		SetQueryString(queryString.Encode()).SetResult(&ResponseDevicesGetDeviceClients{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -2016,7 +2057,6 @@ func (s *DevicesService) GetDeviceClients(serial string, getDeviceClientsQueryPa
 
 	result := response.Result().(*ResponseDevicesGetDeviceClients)
 	return result, response, err
-
 }
 
 //GetDeviceLiveToolsArpTable Return an ARP table live tool job.
@@ -2040,10 +2080,8 @@ func (s *DevicesService) GetDeviceLiveToolsArpTable(serial string, arpTableID st
 		SetResult(&ResponseDevicesGetDeviceLiveToolsArpTable{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -2052,7 +2090,6 @@ func (s *DevicesService) GetDeviceLiveToolsArpTable(serial string, arpTableID st
 
 	result := response.Result().(*ResponseDevicesGetDeviceLiveToolsArpTable)
 	return result, response, err
-
 }
 
 //GetDeviceLiveToolsCableTest Return a cable test live tool job.
@@ -2076,10 +2113,8 @@ func (s *DevicesService) GetDeviceLiveToolsCableTest(serial string, id string) (
 		SetResult(&ResponseDevicesGetDeviceLiveToolsCableTest{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -2088,7 +2123,6 @@ func (s *DevicesService) GetDeviceLiveToolsCableTest(serial string, id string) (
 
 	result := response.Result().(*ResponseDevicesGetDeviceLiveToolsCableTest)
 	return result, response, err
-
 }
 
 //GetDeviceLiveToolsLedsBlink Return a blink LEDs job
@@ -2112,10 +2146,8 @@ func (s *DevicesService) GetDeviceLiveToolsLedsBlink(serial string, ledsBlinkID 
 		SetResult(&ResponseDevicesGetDeviceLiveToolsLedsBlink{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -2124,7 +2156,6 @@ func (s *DevicesService) GetDeviceLiveToolsLedsBlink(serial string, ledsBlinkID 
 
 	result := response.Result().(*ResponseDevicesGetDeviceLiveToolsLedsBlink)
 	return result, response, err
-
 }
 
 //GetDeviceLiveToolsPing Return a ping job
@@ -2148,10 +2179,8 @@ func (s *DevicesService) GetDeviceLiveToolsPing(serial string, id string) (*Resp
 		SetResult(&ResponseDevicesGetDeviceLiveToolsPing{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -2160,7 +2189,6 @@ func (s *DevicesService) GetDeviceLiveToolsPing(serial string, id string) (*Resp
 
 	result := response.Result().(*ResponseDevicesGetDeviceLiveToolsPing)
 	return result, response, err
-
 }
 
 //GetDeviceLiveToolsPingDevice Return a ping device job
@@ -2184,10 +2212,8 @@ func (s *DevicesService) GetDeviceLiveToolsPingDevice(serial string, id string) 
 		SetResult(&ResponseDevicesGetDeviceLiveToolsPingDevice{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -2196,7 +2222,6 @@ func (s *DevicesService) GetDeviceLiveToolsPingDevice(serial string, id string) 
 
 	result := response.Result().(*ResponseDevicesGetDeviceLiveToolsPingDevice)
 	return result, response, err
-
 }
 
 //GetDeviceLiveToolsThroughputTest Return a throughput test job
@@ -2220,10 +2245,8 @@ func (s *DevicesService) GetDeviceLiveToolsThroughputTest(serial string, through
 		SetResult(&ResponseDevicesGetDeviceLiveToolsThroughputTest{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -2232,7 +2255,6 @@ func (s *DevicesService) GetDeviceLiveToolsThroughputTest(serial string, through
 
 	result := response.Result().(*ResponseDevicesGetDeviceLiveToolsThroughputTest)
 	return result, response, err
-
 }
 
 //GetDeviceLiveToolsWakeOnLan Return a Wake-on-LAN job
@@ -2256,10 +2278,8 @@ func (s *DevicesService) GetDeviceLiveToolsWakeOnLan(serial string, wakeOnLanID 
 		SetResult(&ResponseDevicesGetDeviceLiveToolsWakeOnLan{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -2268,7 +2288,6 @@ func (s *DevicesService) GetDeviceLiveToolsWakeOnLan(serial string, wakeOnLanID 
 
 	result := response.Result().(*ResponseDevicesGetDeviceLiveToolsWakeOnLan)
 	return result, response, err
-
 }
 
 //GetDeviceLldpCdp List LLDP and CDP information for a device
@@ -2290,10 +2309,8 @@ func (s *DevicesService) GetDeviceLldpCdp(serial string) (*ResponseDevicesGetDev
 		SetResult(&ResponseDevicesGetDeviceLldpCdp{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -2302,7 +2319,6 @@ func (s *DevicesService) GetDeviceLldpCdp(serial string) (*ResponseDevicesGetDev
 
 	result := response.Result().(*ResponseDevicesGetDeviceLldpCdp)
 	return result, response, err
-
 }
 
 //GetDeviceLossAndLatencyHistory Get the uplink loss percentage and latency in milliseconds, and goodput in kilobits per second for MX, MG and Z devices.
@@ -2327,10 +2343,8 @@ func (s *DevicesService) GetDeviceLossAndLatencyHistory(serial string, getDevice
 		SetQueryString(queryString.Encode()).SetResult(&ResponseDevicesGetDeviceLossAndLatencyHistory{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -2339,7 +2353,6 @@ func (s *DevicesService) GetDeviceLossAndLatencyHistory(serial string, getDevice
 
 	result := response.Result().(*ResponseDevicesGetDeviceLossAndLatencyHistory)
 	return result, response, err
-
 }
 
 //GetDeviceManagementInterface Return the management interface settings for a device
@@ -2361,10 +2374,8 @@ func (s *DevicesService) GetDeviceManagementInterface(serial string) (*ResponseD
 		SetResult(&ResponseDevicesGetDeviceManagementInterface{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -2373,7 +2384,6 @@ func (s *DevicesService) GetDeviceManagementInterface(serial string) (*ResponseD
 
 	result := response.Result().(*ResponseDevicesGetDeviceManagementInterface)
 	return result, response, err
-
 }
 
 //GetNetworkDevices List the devices in a network
@@ -2395,10 +2405,8 @@ func (s *DevicesService) GetNetworkDevices(networkID string) (*ResponseDevicesGe
 		SetResult(&ResponseDevicesGetNetworkDevices{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -2407,7 +2415,6 @@ func (s *DevicesService) GetNetworkDevices(networkID string) (*ResponseDevicesGe
 
 	result := response.Result().(*ResponseDevicesGetNetworkDevices)
 	return result, response, err
-
 }
 
 //GetNetworkSmDeviceCellularUsageHistory Return the client's daily cellular data usage history
@@ -2431,10 +2438,8 @@ func (s *DevicesService) GetNetworkSmDeviceCellularUsageHistory(networkID string
 		SetResult(&ResponseDevicesGetNetworkSmDeviceCellularUsageHistory{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -2443,7 +2448,6 @@ func (s *DevicesService) GetNetworkSmDeviceCellularUsageHistory(networkID string
 
 	result := response.Result().(*ResponseDevicesGetNetworkSmDeviceCellularUsageHistory)
 	return result, response, err
-
 }
 
 //GetNetworkSmDeviceCerts List the certs on a device
@@ -2467,10 +2471,8 @@ func (s *DevicesService) GetNetworkSmDeviceCerts(networkID string, deviceID stri
 		SetResult(&ResponseDevicesGetNetworkSmDeviceCerts{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -2479,7 +2481,6 @@ func (s *DevicesService) GetNetworkSmDeviceCerts(networkID string, deviceID stri
 
 	result := response.Result().(*ResponseDevicesGetNetworkSmDeviceCerts)
 	return result, response, err
-
 }
 
 //GetNetworkSmDeviceDeviceProfiles Get the installed profiles associated with a device
@@ -2503,10 +2504,8 @@ func (s *DevicesService) GetNetworkSmDeviceDeviceProfiles(networkID string, devi
 		SetResult(&ResponseDevicesGetNetworkSmDeviceDeviceProfiles{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -2515,7 +2514,6 @@ func (s *DevicesService) GetNetworkSmDeviceDeviceProfiles(networkID string, devi
 
 	result := response.Result().(*ResponseDevicesGetNetworkSmDeviceDeviceProfiles)
 	return result, response, err
-
 }
 
 //GetNetworkSmDeviceNetworkAdapters List the network adapters of a device
@@ -2539,10 +2537,8 @@ func (s *DevicesService) GetNetworkSmDeviceNetworkAdapters(networkID string, dev
 		SetResult(&ResponseDevicesGetNetworkSmDeviceNetworkAdapters{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -2551,7 +2547,6 @@ func (s *DevicesService) GetNetworkSmDeviceNetworkAdapters(networkID string, dev
 
 	result := response.Result().(*ResponseDevicesGetNetworkSmDeviceNetworkAdapters)
 	return result, response, err
-
 }
 
 //GetNetworkSmDeviceRestrictions List the restrictions on a device
@@ -2575,10 +2570,8 @@ func (s *DevicesService) GetNetworkSmDeviceRestrictions(networkID string, device
 		SetResult(&ResponseDevicesGetNetworkSmDeviceRestrictions{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -2587,7 +2580,6 @@ func (s *DevicesService) GetNetworkSmDeviceRestrictions(networkID string, device
 
 	result := response.Result().(*ResponseDevicesGetNetworkSmDeviceRestrictions)
 	return result, response, err
-
 }
 
 //GetNetworkSmDeviceSecurityCenters List the security centers on a device
@@ -2611,10 +2603,8 @@ func (s *DevicesService) GetNetworkSmDeviceSecurityCenters(networkID string, dev
 		SetResult(&ResponseDevicesGetNetworkSmDeviceSecurityCenters{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -2623,7 +2613,6 @@ func (s *DevicesService) GetNetworkSmDeviceSecurityCenters(networkID string, dev
 
 	result := response.Result().(*ResponseDevicesGetNetworkSmDeviceSecurityCenters)
 	return result, response, err
-
 }
 
 //GetNetworkSmDeviceSoftwares Get a list of softwares associated with a device
@@ -2647,10 +2636,8 @@ func (s *DevicesService) GetNetworkSmDeviceSoftwares(networkID string, deviceID 
 		SetResult(&ResponseDevicesGetNetworkSmDeviceSoftwares{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -2659,7 +2646,6 @@ func (s *DevicesService) GetNetworkSmDeviceSoftwares(networkID string, deviceID 
 
 	result := response.Result().(*ResponseDevicesGetNetworkSmDeviceSoftwares)
 	return result, response, err
-
 }
 
 //GetNetworkSmDeviceWLANLists List the saved SSID names on a device
@@ -2683,10 +2669,8 @@ func (s *DevicesService) GetNetworkSmDeviceWLANLists(networkID string, deviceID 
 		SetResult(&ResponseDevicesGetNetworkSmDeviceWLANLists{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -2695,7 +2679,6 @@ func (s *DevicesService) GetNetworkSmDeviceWLANLists(networkID string, deviceID 
 
 	result := response.Result().(*ResponseDevicesGetNetworkSmDeviceWLANLists)
 	return result, response, err
-
 }
 
 //GetOrganizationDevicesAvailabilitiesChangeHistory List the availability history information for devices in an organization.
@@ -2750,10 +2733,8 @@ func (s *DevicesService) GetOrganizationDevicesAvailabilitiesChangeHistory(organ
 		SetQueryString(queryString.Encode()).SetResult(&ResponseDevicesGetOrganizationDevicesAvailabilitiesChangeHistory{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -2762,8 +2743,8 @@ func (s *DevicesService) GetOrganizationDevicesAvailabilitiesChangeHistory(organ
 
 	result := response.Result().(*ResponseDevicesGetOrganizationDevicesAvailabilitiesChangeHistory)
 	return result, response, err
-
 }
+
 func (s *DevicesService) GetOrganizationDevicesAvailabilitiesChangeHistoryPaginate(organizationID string, getOrganizationDevicesAvailabilitiesChangeHistoryQueryParams any) (any, *resty.Response, error) {
 	getOrganizationDevicesAvailabilitiesChangeHistoryQueryParamsConverted := getOrganizationDevicesAvailabilitiesChangeHistoryQueryParams.(*GetOrganizationDevicesAvailabilitiesChangeHistoryQueryParams)
 
@@ -2822,10 +2803,8 @@ func (s *DevicesService) GetOrganizationDevicesControllerMigrations(organization
 		SetQueryString(queryString.Encode()).SetResult(&ResponseDevicesGetOrganizationDevicesControllerMigrations{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -2834,8 +2813,8 @@ func (s *DevicesService) GetOrganizationDevicesControllerMigrations(organization
 
 	result := response.Result().(*ResponseDevicesGetOrganizationDevicesControllerMigrations)
 	return result, response, err
-
 }
+
 func (s *DevicesService) GetOrganizationDevicesControllerMigrationsPaginate(organizationID string, getOrganizationDevicesControllerMigrationsQueryParams any) (any, *resty.Response, error) {
 	getOrganizationDevicesControllerMigrationsQueryParamsConverted := getOrganizationDevicesControllerMigrationsQueryParams.(*GetOrganizationDevicesControllerMigrationsQueryParams)
 
@@ -2864,10 +2843,8 @@ func (s *DevicesService) GetOrganizationDevicesOverviewByModel(organizationID st
 		SetQueryString(queryString.Encode()).SetResult(&ResponseDevicesGetOrganizationDevicesOverviewByModel{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -2876,7 +2853,6 @@ func (s *DevicesService) GetOrganizationDevicesOverviewByModel(organizationID st
 
 	result := response.Result().(*ResponseDevicesGetOrganizationDevicesOverviewByModel)
 	return result, response, err
-
 }
 
 //GetOrganizationDevicesSystemMemoryUsageHistoryByInterval Return the memory utilization history in kB for devices in the organization.
@@ -2946,10 +2922,8 @@ func (s *DevicesService) GetOrganizationFloorPlansAutoLocateDevices(organization
 		SetQueryString(queryString.Encode()).SetResult(&ResponseDevicesGetOrganizationFloorPlansAutoLocateDevices{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -2958,8 +2932,8 @@ func (s *DevicesService) GetOrganizationFloorPlansAutoLocateDevices(organization
 
 	result := response.Result().(*ResponseDevicesGetOrganizationFloorPlansAutoLocateDevices)
 	return result, response, err
-
 }
+
 func (s *DevicesService) GetOrganizationFloorPlansAutoLocateDevicesPaginate(organizationID string, getOrganizationFloorPlansAutoLocateDevicesQueryParams any) (any, *resty.Response, error) {
 	getOrganizationFloorPlansAutoLocateDevicesQueryParamsConverted := getOrganizationFloorPlansAutoLocateDevicesQueryParams.(*GetOrganizationFloorPlansAutoLocateDevicesQueryParams)
 
@@ -2987,10 +2961,8 @@ func (s *DevicesService) GetOrganizationInventoryDevicesSwapsBulk(organizationID
 		SetResult(&ResponseDevicesGetOrganizationInventoryDevicesSwapsBulk{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -2999,7 +2971,6 @@ func (s *DevicesService) GetOrganizationInventoryDevicesSwapsBulk(organizationID
 
 	result := response.Result().(*ResponseDevicesGetOrganizationInventoryDevicesSwapsBulk)
 	return result, response, err
-
 }
 
 //GetOrganizationInventoryDevice Return a single device from the inventory of an organization
@@ -3023,10 +2994,8 @@ func (s *DevicesService) GetOrganizationInventoryDevice(organizationID string, s
 		SetResult(&ResponseDevicesGetOrganizationInventoryDevice{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -3035,7 +3004,6 @@ func (s *DevicesService) GetOrganizationInventoryDevice(organizationID string, s
 
 	result := response.Result().(*ResponseDevicesGetOrganizationInventoryDevice)
 	return result, response, err
-
 }
 
 //GetOrganizationWirelessDevicesChannelUtilizationByDevice Get average channel utilization for all bands in a network, split by AP
@@ -3090,10 +3058,8 @@ func (s *DevicesService) GetOrganizationWirelessDevicesChannelUtilizationByDevic
 		SetQueryString(queryString.Encode()).SetResult(&ResponseDevicesGetOrganizationWirelessDevicesChannelUtilizationByDevice{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -3102,8 +3068,8 @@ func (s *DevicesService) GetOrganizationWirelessDevicesChannelUtilizationByDevic
 
 	result := response.Result().(*ResponseDevicesGetOrganizationWirelessDevicesChannelUtilizationByDevice)
 	return result, response, err
-
 }
+
 func (s *DevicesService) GetOrganizationWirelessDevicesChannelUtilizationByDevicePaginate(organizationID string, getOrganizationWirelessDevicesChannelUtilizationByDeviceQueryParams any) (any, *resty.Response, error) {
 	getOrganizationWirelessDevicesChannelUtilizationByDeviceQueryParamsConverted := getOrganizationWirelessDevicesChannelUtilizationByDeviceQueryParams.(*GetOrganizationWirelessDevicesChannelUtilizationByDeviceQueryParams)
 
@@ -3162,10 +3128,8 @@ func (s *DevicesService) GetOrganizationWirelessDevicesChannelUtilizationByNetwo
 		SetQueryString(queryString.Encode()).SetResult(&ResponseDevicesGetOrganizationWirelessDevicesChannelUtilizationByNetwork{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -3174,8 +3138,8 @@ func (s *DevicesService) GetOrganizationWirelessDevicesChannelUtilizationByNetwo
 
 	result := response.Result().(*ResponseDevicesGetOrganizationWirelessDevicesChannelUtilizationByNetwork)
 	return result, response, err
-
 }
+
 func (s *DevicesService) GetOrganizationWirelessDevicesChannelUtilizationByNetworkPaginate(organizationID string, getOrganizationWirelessDevicesChannelUtilizationByNetworkQueryParams any) (any, *resty.Response, error) {
 	getOrganizationWirelessDevicesChannelUtilizationByNetworkQueryParamsConverted := getOrganizationWirelessDevicesChannelUtilizationByNetworkQueryParams.(*GetOrganizationWirelessDevicesChannelUtilizationByNetworkQueryParams)
 
@@ -3234,10 +3198,8 @@ func (s *DevicesService) GetOrganizationWirelessDevicesChannelUtilizationHistory
 		SetQueryString(queryString.Encode()).SetResult(&ResponseDevicesGetOrganizationWirelessDevicesChannelUtilizationHistoryByDeviceByInterval{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -3246,8 +3208,8 @@ func (s *DevicesService) GetOrganizationWirelessDevicesChannelUtilizationHistory
 
 	result := response.Result().(*ResponseDevicesGetOrganizationWirelessDevicesChannelUtilizationHistoryByDeviceByInterval)
 	return result, response, err
-
 }
+
 func (s *DevicesService) GetOrganizationWirelessDevicesChannelUtilizationHistoryByDeviceByIntervalPaginate(organizationID string, getOrganizationWirelessDevicesChannelUtilizationHistoryByDeviceByIntervalQueryParams any) (any, *resty.Response, error) {
 	getOrganizationWirelessDevicesChannelUtilizationHistoryByDeviceByIntervalQueryParamsConverted := getOrganizationWirelessDevicesChannelUtilizationHistoryByDeviceByIntervalQueryParams.(*GetOrganizationWirelessDevicesChannelUtilizationHistoryByDeviceByIntervalQueryParams)
 
@@ -3306,10 +3268,8 @@ func (s *DevicesService) GetOrganizationWirelessDevicesChannelUtilizationHistory
 		SetQueryString(queryString.Encode()).SetResult(&ResponseDevicesGetOrganizationWirelessDevicesChannelUtilizationHistoryByNetworkByInterval{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -3318,8 +3278,8 @@ func (s *DevicesService) GetOrganizationWirelessDevicesChannelUtilizationHistory
 
 	result := response.Result().(*ResponseDevicesGetOrganizationWirelessDevicesChannelUtilizationHistoryByNetworkByInterval)
 	return result, response, err
-
 }
+
 func (s *DevicesService) GetOrganizationWirelessDevicesChannelUtilizationHistoryByNetworkByIntervalPaginate(organizationID string, getOrganizationWirelessDevicesChannelUtilizationHistoryByNetworkByIntervalQueryParams any) (any, *resty.Response, error) {
 	getOrganizationWirelessDevicesChannelUtilizationHistoryByNetworkByIntervalQueryParamsConverted := getOrganizationWirelessDevicesChannelUtilizationHistoryByNetworkByIntervalQueryParams.(*GetOrganizationWirelessDevicesChannelUtilizationHistoryByNetworkByIntervalQueryParams)
 
@@ -3378,10 +3338,8 @@ func (s *DevicesService) GetOrganizationWirelessDevicesPacketLossByClient(organi
 		SetQueryString(queryString.Encode()).SetResult(&ResponseDevicesGetOrganizationWirelessDevicesPacketLossByClient{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -3390,8 +3348,8 @@ func (s *DevicesService) GetOrganizationWirelessDevicesPacketLossByClient(organi
 
 	result := response.Result().(*ResponseDevicesGetOrganizationWirelessDevicesPacketLossByClient)
 	return result, response, err
-
 }
+
 func (s *DevicesService) GetOrganizationWirelessDevicesPacketLossByClientPaginate(organizationID string, getOrganizationWirelessDevicesPacketLossByClientQueryParams any) (any, *resty.Response, error) {
 	getOrganizationWirelessDevicesPacketLossByClientQueryParamsConverted := getOrganizationWirelessDevicesPacketLossByClientQueryParams.(*GetOrganizationWirelessDevicesPacketLossByClientQueryParams)
 
@@ -3450,10 +3408,8 @@ func (s *DevicesService) GetOrganizationWirelessDevicesPacketLossByDevice(organi
 		SetQueryString(queryString.Encode()).SetResult(&ResponseDevicesGetOrganizationWirelessDevicesPacketLossByDevice{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -3462,8 +3418,8 @@ func (s *DevicesService) GetOrganizationWirelessDevicesPacketLossByDevice(organi
 
 	result := response.Result().(*ResponseDevicesGetOrganizationWirelessDevicesPacketLossByDevice)
 	return result, response, err
-
 }
+
 func (s *DevicesService) GetOrganizationWirelessDevicesPacketLossByDevicePaginate(organizationID string, getOrganizationWirelessDevicesPacketLossByDeviceQueryParams any) (any, *resty.Response, error) {
 	getOrganizationWirelessDevicesPacketLossByDeviceQueryParamsConverted := getOrganizationWirelessDevicesPacketLossByDeviceQueryParams.(*GetOrganizationWirelessDevicesPacketLossByDeviceQueryParams)
 
@@ -3522,10 +3478,8 @@ func (s *DevicesService) GetOrganizationWirelessDevicesPacketLossByNetwork(organ
 		SetQueryString(queryString.Encode()).SetResult(&ResponseDevicesGetOrganizationWirelessDevicesPacketLossByNetwork{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -3534,8 +3488,8 @@ func (s *DevicesService) GetOrganizationWirelessDevicesPacketLossByNetwork(organ
 
 	result := response.Result().(*ResponseDevicesGetOrganizationWirelessDevicesPacketLossByNetwork)
 	return result, response, err
-
 }
+
 func (s *DevicesService) GetOrganizationWirelessDevicesPacketLossByNetworkPaginate(organizationID string, getOrganizationWirelessDevicesPacketLossByNetworkQueryParams any) (any, *resty.Response, error) {
 	getOrganizationWirelessDevicesPacketLossByNetworkQueryParamsConverted := getOrganizationWirelessDevicesPacketLossByNetworkQueryParams.(*GetOrganizationWirelessDevicesPacketLossByNetworkQueryParams)
 
@@ -3595,10 +3549,8 @@ func (s *DevicesService) GetOrganizationWirelessDevicesPowerModeHistory(organiza
 		SetQueryString(queryString.Encode()).SetResult(&ResponseDevicesGetOrganizationWirelessDevicesPowerModeHistory{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -3607,8 +3559,8 @@ func (s *DevicesService) GetOrganizationWirelessDevicesPowerModeHistory(organiza
 
 	result := response.Result().(*ResponseDevicesGetOrganizationWirelessDevicesPowerModeHistory)
 	return result, response, err
-
 }
+
 func (s *DevicesService) GetOrganizationWirelessDevicesPowerModeHistoryPaginate(organizationID string, getOrganizationWirelessDevicesPowerModeHistoryQueryParams any) (any, *resty.Response, error) {
 	getOrganizationWirelessDevicesPowerModeHistoryQueryParamsConverted := getOrganizationWirelessDevicesPowerModeHistoryQueryParams.(*GetOrganizationWirelessDevicesPowerModeHistoryQueryParams)
 
@@ -3666,10 +3618,8 @@ func (s *DevicesService) GetOrganizationWirelessDevicesSystemCPULoadHistory(orga
 		SetQueryString(queryString.Encode()).SetResult(&ResponseDevicesGetOrganizationWirelessDevicesSystemCPULoadHistory{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -3678,8 +3628,8 @@ func (s *DevicesService) GetOrganizationWirelessDevicesSystemCPULoadHistory(orga
 
 	result := response.Result().(*ResponseDevicesGetOrganizationWirelessDevicesSystemCPULoadHistory)
 	return result, response, err
-
 }
+
 func (s *DevicesService) GetOrganizationWirelessDevicesSystemCPULoadHistoryPaginate(organizationID string, getOrganizationWirelessDevicesSystemCpuLoadHistoryQueryParams any) (any, *resty.Response, error) {
 	getOrganizationWirelessDevicesSystemCpuLoadHistoryQueryParamsConverted := getOrganizationWirelessDevicesSystemCpuLoadHistoryQueryParams.(*GetOrganizationWirelessDevicesSystemCPULoadHistoryQueryParams)
 
@@ -3738,10 +3688,8 @@ func (s *DevicesService) GetOrganizationWirelessDevicesWirelessControllersByDevi
 		SetQueryString(queryString.Encode()).SetResult(&ResponseDevicesGetOrganizationWirelessDevicesWirelessControllersByDevice{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -3750,8 +3698,8 @@ func (s *DevicesService) GetOrganizationWirelessDevicesWirelessControllersByDevi
 
 	result := response.Result().(*ResponseDevicesGetOrganizationWirelessDevicesWirelessControllersByDevice)
 	return result, response, err
-
 }
+
 func (s *DevicesService) GetOrganizationWirelessDevicesWirelessControllersByDevicePaginate(organizationID string, getOrganizationWirelessDevicesWirelessControllersByDeviceQueryParams any) (any, *resty.Response, error) {
 	getOrganizationWirelessDevicesWirelessControllersByDeviceQueryParamsConverted := getOrganizationWirelessDevicesWirelessControllersByDeviceQueryParams.(*GetOrganizationWirelessDevicesWirelessControllersByDeviceQueryParams)
 
@@ -3810,10 +3758,8 @@ func (s *DevicesService) GetOrganizationWirelessControllerDevicesInterfacesL2ByD
 		SetQueryString(queryString.Encode()).SetResult(&ResponseDevicesGetOrganizationWirelessControllerDevicesInterfacesL2ByDevice{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -3822,8 +3768,8 @@ func (s *DevicesService) GetOrganizationWirelessControllerDevicesInterfacesL2ByD
 
 	result := response.Result().(*ResponseDevicesGetOrganizationWirelessControllerDevicesInterfacesL2ByDevice)
 	return result, response, err
-
 }
+
 func (s *DevicesService) GetOrganizationWirelessControllerDevicesInterfacesL2ByDevicePaginate(organizationID string, getOrganizationWirelessControllerDevicesInterfacesL2ByDeviceQueryParams any) (any, *resty.Response, error) {
 	getOrganizationWirelessControllerDevicesInterfacesL2ByDeviceQueryParamsConverted := getOrganizationWirelessControllerDevicesInterfacesL2ByDeviceQueryParams.(*GetOrganizationWirelessControllerDevicesInterfacesL2ByDeviceQueryParams)
 
@@ -3882,10 +3828,8 @@ func (s *DevicesService) GetOrganizationWirelessControllerDevicesInterfacesL2Sta
 		SetQueryString(queryString.Encode()).SetResult(&ResponseDevicesGetOrganizationWirelessControllerDevicesInterfacesL2StatusesChangeHistoryByDevice{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -3894,8 +3838,8 @@ func (s *DevicesService) GetOrganizationWirelessControllerDevicesInterfacesL2Sta
 
 	result := response.Result().(*ResponseDevicesGetOrganizationWirelessControllerDevicesInterfacesL2StatusesChangeHistoryByDevice)
 	return result, response, err
-
 }
+
 func (s *DevicesService) GetOrganizationWirelessControllerDevicesInterfacesL2StatusesChangeHistoryByDevicePaginate(organizationID string, getOrganizationWirelessControllerDevicesInterfacesL2StatusesChangeHistoryByDeviceQueryParams any) (any, *resty.Response, error) {
 	getOrganizationWirelessControllerDevicesInterfacesL2StatusesChangeHistoryByDeviceQueryParamsConverted := getOrganizationWirelessControllerDevicesInterfacesL2StatusesChangeHistoryByDeviceQueryParams.(*GetOrganizationWirelessControllerDevicesInterfacesL2StatusesChangeHistoryByDeviceQueryParams)
 
@@ -3954,10 +3898,8 @@ func (s *DevicesService) GetOrganizationWirelessControllerDevicesInterfacesL2Usa
 		SetQueryString(queryString.Encode()).SetResult(&ResponseDevicesGetOrganizationWirelessControllerDevicesInterfacesL2UsageHistoryByInterval{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -3966,8 +3908,8 @@ func (s *DevicesService) GetOrganizationWirelessControllerDevicesInterfacesL2Usa
 
 	result := response.Result().(*ResponseDevicesGetOrganizationWirelessControllerDevicesInterfacesL2UsageHistoryByInterval)
 	return result, response, err
-
 }
+
 func (s *DevicesService) GetOrganizationWirelessControllerDevicesInterfacesL2UsageHistoryByIntervalPaginate(organizationID string, getOrganizationWirelessControllerDevicesInterfacesL2UsageHistoryByIntervalQueryParams any) (any, *resty.Response, error) {
 	getOrganizationWirelessControllerDevicesInterfacesL2UsageHistoryByIntervalQueryParamsConverted := getOrganizationWirelessControllerDevicesInterfacesL2UsageHistoryByIntervalQueryParams.(*GetOrganizationWirelessControllerDevicesInterfacesL2UsageHistoryByIntervalQueryParams)
 
@@ -4026,10 +3968,8 @@ func (s *DevicesService) GetOrganizationWirelessControllerDevicesInterfacesL3ByD
 		SetQueryString(queryString.Encode()).SetResult(&ResponseDevicesGetOrganizationWirelessControllerDevicesInterfacesL3ByDevice{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -4038,8 +3978,8 @@ func (s *DevicesService) GetOrganizationWirelessControllerDevicesInterfacesL3ByD
 
 	result := response.Result().(*ResponseDevicesGetOrganizationWirelessControllerDevicesInterfacesL3ByDevice)
 	return result, response, err
-
 }
+
 func (s *DevicesService) GetOrganizationWirelessControllerDevicesInterfacesL3ByDevicePaginate(organizationID string, getOrganizationWirelessControllerDevicesInterfacesL3ByDeviceQueryParams any) (any, *resty.Response, error) {
 	getOrganizationWirelessControllerDevicesInterfacesL3ByDeviceQueryParamsConverted := getOrganizationWirelessControllerDevicesInterfacesL3ByDeviceQueryParams.(*GetOrganizationWirelessControllerDevicesInterfacesL3ByDeviceQueryParams)
 
@@ -4098,10 +4038,8 @@ func (s *DevicesService) GetOrganizationWirelessControllerDevicesInterfacesL3Sta
 		SetQueryString(queryString.Encode()).SetResult(&ResponseDevicesGetOrganizationWirelessControllerDevicesInterfacesL3StatusesChangeHistoryByDevice{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -4110,8 +4048,8 @@ func (s *DevicesService) GetOrganizationWirelessControllerDevicesInterfacesL3Sta
 
 	result := response.Result().(*ResponseDevicesGetOrganizationWirelessControllerDevicesInterfacesL3StatusesChangeHistoryByDevice)
 	return result, response, err
-
 }
+
 func (s *DevicesService) GetOrganizationWirelessControllerDevicesInterfacesL3StatusesChangeHistoryByDevicePaginate(organizationID string, getOrganizationWirelessControllerDevicesInterfacesL3StatusesChangeHistoryByDeviceQueryParams any) (any, *resty.Response, error) {
 	getOrganizationWirelessControllerDevicesInterfacesL3StatusesChangeHistoryByDeviceQueryParamsConverted := getOrganizationWirelessControllerDevicesInterfacesL3StatusesChangeHistoryByDeviceQueryParams.(*GetOrganizationWirelessControllerDevicesInterfacesL3StatusesChangeHistoryByDeviceQueryParams)
 
@@ -4170,10 +4108,8 @@ func (s *DevicesService) GetOrganizationWirelessControllerDevicesInterfacesL3Usa
 		SetQueryString(queryString.Encode()).SetResult(&ResponseDevicesGetOrganizationWirelessControllerDevicesInterfacesL3UsageHistoryByInterval{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -4182,8 +4118,8 @@ func (s *DevicesService) GetOrganizationWirelessControllerDevicesInterfacesL3Usa
 
 	result := response.Result().(*ResponseDevicesGetOrganizationWirelessControllerDevicesInterfacesL3UsageHistoryByInterval)
 	return result, response, err
-
 }
+
 func (s *DevicesService) GetOrganizationWirelessControllerDevicesInterfacesL3UsageHistoryByIntervalPaginate(organizationID string, getOrganizationWirelessControllerDevicesInterfacesL3UsageHistoryByIntervalQueryParams any) (any, *resty.Response, error) {
 	getOrganizationWirelessControllerDevicesInterfacesL3UsageHistoryByIntervalQueryParamsConverted := getOrganizationWirelessControllerDevicesInterfacesL3UsageHistoryByIntervalQueryParams.(*GetOrganizationWirelessControllerDevicesInterfacesL3UsageHistoryByIntervalQueryParams)
 
@@ -4242,10 +4178,8 @@ func (s *DevicesService) GetOrganizationWirelessControllerDevicesInterfacesPacke
 		SetQueryString(queryString.Encode()).SetResult(&ResponseDevicesGetOrganizationWirelessControllerDevicesInterfacesPacketsOverviewByDevice{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -4254,8 +4188,8 @@ func (s *DevicesService) GetOrganizationWirelessControllerDevicesInterfacesPacke
 
 	result := response.Result().(*ResponseDevicesGetOrganizationWirelessControllerDevicesInterfacesPacketsOverviewByDevice)
 	return result, response, err
-
 }
+
 func (s *DevicesService) GetOrganizationWirelessControllerDevicesInterfacesPacketsOverviewByDevicePaginate(organizationID string, getOrganizationWirelessControllerDevicesInterfacesPacketsOverviewByDeviceQueryParams any) (any, *resty.Response, error) {
 	getOrganizationWirelessControllerDevicesInterfacesPacketsOverviewByDeviceQueryParamsConverted := getOrganizationWirelessControllerDevicesInterfacesPacketsOverviewByDeviceQueryParams.(*GetOrganizationWirelessControllerDevicesInterfacesPacketsOverviewByDeviceQueryParams)
 
@@ -4314,10 +4248,8 @@ func (s *DevicesService) GetOrganizationWirelessControllerDevicesInterfacesUsage
 		SetQueryString(queryString.Encode()).SetResult(&ResponseDevicesGetOrganizationWirelessControllerDevicesInterfacesUsageHistoryByInterval{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -4326,8 +4258,8 @@ func (s *DevicesService) GetOrganizationWirelessControllerDevicesInterfacesUsage
 
 	result := response.Result().(*ResponseDevicesGetOrganizationWirelessControllerDevicesInterfacesUsageHistoryByInterval)
 	return result, response, err
-
 }
+
 func (s *DevicesService) GetOrganizationWirelessControllerDevicesInterfacesUsageHistoryByIntervalPaginate(organizationID string, getOrganizationWirelessControllerDevicesInterfacesUsageHistoryByIntervalQueryParams any) (any, *resty.Response, error) {
 	getOrganizationWirelessControllerDevicesInterfacesUsageHistoryByIntervalQueryParamsConverted := getOrganizationWirelessControllerDevicesInterfacesUsageHistoryByIntervalQueryParams.(*GetOrganizationWirelessControllerDevicesInterfacesUsageHistoryByIntervalQueryParams)
 
@@ -4386,10 +4318,8 @@ func (s *DevicesService) GetOrganizationWirelessControllerDevicesRedundancyFailo
 		SetQueryString(queryString.Encode()).SetResult(&ResponseDevicesGetOrganizationWirelessControllerDevicesRedundancyFailoverHistory{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -4398,8 +4328,8 @@ func (s *DevicesService) GetOrganizationWirelessControllerDevicesRedundancyFailo
 
 	result := response.Result().(*ResponseDevicesGetOrganizationWirelessControllerDevicesRedundancyFailoverHistory)
 	return result, response, err
-
 }
+
 func (s *DevicesService) GetOrganizationWirelessControllerDevicesRedundancyFailoverHistoryPaginate(organizationID string, getOrganizationWirelessControllerDevicesRedundancyFailoverHistoryQueryParams any) (any, *resty.Response, error) {
 	getOrganizationWirelessControllerDevicesRedundancyFailoverHistoryQueryParamsConverted := getOrganizationWirelessControllerDevicesRedundancyFailoverHistoryQueryParams.(*GetOrganizationWirelessControllerDevicesRedundancyFailoverHistoryQueryParams)
 
@@ -4458,10 +4388,8 @@ func (s *DevicesService) GetOrganizationWirelessControllerDevicesRedundancyStatu
 		SetQueryString(queryString.Encode()).SetResult(&ResponseDevicesGetOrganizationWirelessControllerDevicesRedundancyStatuses{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -4470,8 +4398,8 @@ func (s *DevicesService) GetOrganizationWirelessControllerDevicesRedundancyStatu
 
 	result := response.Result().(*ResponseDevicesGetOrganizationWirelessControllerDevicesRedundancyStatuses)
 	return result, response, err
-
 }
+
 func (s *DevicesService) GetOrganizationWirelessControllerDevicesRedundancyStatusesPaginate(organizationID string, getOrganizationWirelessControllerDevicesRedundancyStatusesQueryParams any) (any, *resty.Response, error) {
 	getOrganizationWirelessControllerDevicesRedundancyStatusesQueryParamsConverted := getOrganizationWirelessControllerDevicesRedundancyStatusesQueryParams.(*GetOrganizationWirelessControllerDevicesRedundancyStatusesQueryParams)
 
@@ -4530,10 +4458,8 @@ func (s *DevicesService) GetOrganizationWirelessControllerDevicesSystemUtilizati
 		SetQueryString(queryString.Encode()).SetResult(&ResponseDevicesGetOrganizationWirelessControllerDevicesSystemUtilizationHistoryByInterval{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -4542,8 +4468,8 @@ func (s *DevicesService) GetOrganizationWirelessControllerDevicesSystemUtilizati
 
 	result := response.Result().(*ResponseDevicesGetOrganizationWirelessControllerDevicesSystemUtilizationHistoryByInterval)
 	return result, response, err
-
 }
+
 func (s *DevicesService) GetOrganizationWirelessControllerDevicesSystemUtilizationHistoryByIntervalPaginate(organizationID string, getOrganizationWirelessControllerDevicesSystemUtilizationHistoryByIntervalQueryParams any) (any, *resty.Response, error) {
 	getOrganizationWirelessControllerDevicesSystemUtilizationHistoryByIntervalQueryParamsConverted := getOrganizationWirelessControllerDevicesSystemUtilizationHistoryByIntervalQueryParams.(*GetOrganizationWirelessControllerDevicesSystemUtilizationHistoryByIntervalQueryParams)
 
@@ -4579,7 +4505,6 @@ func (s *DevicesService) GetOrganizationDevicesSystemMemoryUsageHistoryByInterva
 				SetResult(&currentResult).
 				SetError(&Error).
 				Get(nextURL)
-
 			if err != nil {
 				return combinedResult, response, err
 			}
@@ -4618,7 +4543,6 @@ func (s *DevicesService) makeDevicesSystemMemoryUsageHistoryByIntervalRequest(pa
 		SetResult(&ResponseDevicesGetOrganizationDevicesSystemMemoryUsageHistoryByInterval{}).
 		SetError(&Error).
 		Get(path)
-
 	if err != nil {
 		return nil, nil, err
 	}
@@ -4651,10 +4575,8 @@ func (s *DevicesService) BlinkDeviceLeds(serial string, requestDevicesBlinkDevic
 		SetResult(&ResponseDevicesBlinkDeviceLeds{}).
 		SetError(&Error).
 		Post(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -4663,7 +4585,6 @@ func (s *DevicesService) BlinkDeviceLeds(serial string, requestDevicesBlinkDevic
 
 	result := response.Result().(*ResponseDevicesBlinkDeviceLeds)
 	return result, response, err
-
 }
 
 //CreateDeviceLiveToolsArpTable Enqueue a job to perform a ARP table request for the device
@@ -4686,10 +4607,8 @@ func (s *DevicesService) CreateDeviceLiveToolsArpTable(serial string, requestDev
 		SetResult(&ResponseDevicesCreateDeviceLiveToolsArpTable{}).
 		SetError(&Error).
 		Post(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -4698,7 +4617,6 @@ func (s *DevicesService) CreateDeviceLiveToolsArpTable(serial string, requestDev
 
 	result := response.Result().(*ResponseDevicesCreateDeviceLiveToolsArpTable)
 	return result, response, err
-
 }
 
 //CreateDeviceLiveToolsCableTest Enqueue a job to perform a cable test for the device on the specified ports
@@ -4721,10 +4639,8 @@ func (s *DevicesService) CreateDeviceLiveToolsCableTest(serial string, requestDe
 		SetResult(&ResponseDevicesCreateDeviceLiveToolsCableTest{}).
 		SetError(&Error).
 		Post(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -4733,7 +4649,6 @@ func (s *DevicesService) CreateDeviceLiveToolsCableTest(serial string, requestDe
 
 	result := response.Result().(*ResponseDevicesCreateDeviceLiveToolsCableTest)
 	return result, response, err
-
 }
 
 //CreateDeviceLiveToolsLedsBlink Enqueue a job to blink LEDs on a device
@@ -4756,10 +4671,8 @@ func (s *DevicesService) CreateDeviceLiveToolsLedsBlink(serial string, requestDe
 		SetResult(&ResponseDevicesCreateDeviceLiveToolsLedsBlink{}).
 		SetError(&Error).
 		Post(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -4768,7 +4681,6 @@ func (s *DevicesService) CreateDeviceLiveToolsLedsBlink(serial string, requestDe
 
 	result := response.Result().(*ResponseDevicesCreateDeviceLiveToolsLedsBlink)
 	return result, response, err
-
 }
 
 //CreateDeviceLiveToolsPing Enqueue a job to ping a target host from the device
@@ -4791,10 +4703,8 @@ func (s *DevicesService) CreateDeviceLiveToolsPing(serial string, requestDevices
 		SetResult(&ResponseDevicesCreateDeviceLiveToolsPing{}).
 		SetError(&Error).
 		Post(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -4803,7 +4713,6 @@ func (s *DevicesService) CreateDeviceLiveToolsPing(serial string, requestDevices
 
 	result := response.Result().(*ResponseDevicesCreateDeviceLiveToolsPing)
 	return result, response, err
-
 }
 
 //CreateDeviceLiveToolsPingDevice Enqueue a job to check connectivity status to the device
@@ -4826,10 +4735,8 @@ func (s *DevicesService) CreateDeviceLiveToolsPingDevice(serial string, requestD
 		SetResult(&ResponseDevicesCreateDeviceLiveToolsPingDevice{}).
 		SetError(&Error).
 		Post(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -4838,7 +4745,6 @@ func (s *DevicesService) CreateDeviceLiveToolsPingDevice(serial string, requestD
 
 	result := response.Result().(*ResponseDevicesCreateDeviceLiveToolsPingDevice)
 	return result, response, err
-
 }
 
 //CreateDeviceLiveToolsThroughputTest Enqueue a job to test a device throughput, the test will run for 10 secs to test throughput
@@ -4861,10 +4767,8 @@ func (s *DevicesService) CreateDeviceLiveToolsThroughputTest(serial string, requ
 		SetResult(&ResponseDevicesCreateDeviceLiveToolsThroughputTest{}).
 		SetError(&Error).
 		Post(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -4873,7 +4777,6 @@ func (s *DevicesService) CreateDeviceLiveToolsThroughputTest(serial string, requ
 
 	result := response.Result().(*ResponseDevicesCreateDeviceLiveToolsThroughputTest)
 	return result, response, err
-
 }
 
 //CreateDeviceLiveToolsWakeOnLan Enqueue a job to send a Wake-on-LAN packet from the device
@@ -4896,10 +4799,8 @@ func (s *DevicesService) CreateDeviceLiveToolsWakeOnLan(serial string, requestDe
 		SetResult(&ResponseDevicesCreateDeviceLiveToolsWakeOnLan{}).
 		SetError(&Error).
 		Post(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -4908,7 +4809,6 @@ func (s *DevicesService) CreateDeviceLiveToolsWakeOnLan(serial string, requestDe
 
 	result := response.Result().(*ResponseDevicesCreateDeviceLiveToolsWakeOnLan)
 	return result, response, err
-
 }
 
 //RebootDevice Reboot a device
@@ -4930,10 +4830,8 @@ func (s *DevicesService) RebootDevice(serial string) (*ResponseDevicesRebootDevi
 		SetResult(&ResponseDevicesRebootDevice{}).
 		SetError(&Error).
 		Post(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -4942,7 +4840,6 @@ func (s *DevicesService) RebootDevice(serial string) (*ResponseDevicesRebootDevi
 
 	result := response.Result().(*ResponseDevicesRebootDevice)
 	return result, response, err
-
 }
 
 //ClaimNetworkDevices Claim devices into a network. (Note: for recently claimed devices, it may take a few minutes for API requests against that device to succeed)
@@ -4968,10 +4865,8 @@ func (s *DevicesService) ClaimNetworkDevices(networkID string, requestDevicesCla
 		SetResult(&ResponseDevicesClaimNetworkDevices{}).
 		SetError(&Error).
 		Post(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -4980,7 +4875,6 @@ func (s *DevicesService) ClaimNetworkDevices(networkID string, requestDevicesCla
 
 	result := response.Result().(*ResponseDevicesClaimNetworkDevices)
 	return result, response, err
-
 }
 
 //VmxNetworkDevicesClaim Claim a vMX into a network
@@ -5003,10 +4897,8 @@ func (s *DevicesService) VmxNetworkDevicesClaim(networkID string, requestDevices
 		SetResult(&ResponseDevicesVmxNetworkDevicesClaim{}).
 		SetError(&Error).
 		Post(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -5015,7 +4907,6 @@ func (s *DevicesService) VmxNetworkDevicesClaim(networkID string, requestDevices
 
 	result := response.Result().(*ResponseDevicesVmxNetworkDevicesClaim)
 	return result, response, err
-
 }
 
 //RemoveNetworkDevices Remove a single device
@@ -5037,10 +4928,8 @@ func (s *DevicesService) RemoveNetworkDevices(networkID string, requestDevicesRe
 		SetBody(requestDevicesRemoveNetworkDevices).
 		SetError(&Error).
 		Post(path)
-
 	if err != nil {
 		return nil, err
-
 	}
 
 	if response.IsError() {
@@ -5048,7 +4937,6 @@ func (s *DevicesService) RemoveNetworkDevices(networkID string, requestDevicesRe
 	}
 
 	return response, err
-
 }
 
 //BatchNetworkFloorPlansDevicesUpdate Update floorplan assignments for a batch of devices
@@ -5071,10 +4959,8 @@ func (s *DevicesService) BatchNetworkFloorPlansDevicesUpdate(networkID string, r
 		SetResult(&ResponseDevicesBatchNetworkFloorPlansDevicesUpdate{}).
 		SetError(&Error).
 		Post(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -5083,7 +4969,6 @@ func (s *DevicesService) BatchNetworkFloorPlansDevicesUpdate(networkID string, r
 
 	result := response.Result().(*ResponseDevicesBatchNetworkFloorPlansDevicesUpdate)
 	return result, response, err
-
 }
 
 //CheckinNetworkSmDevices Force check-in a set of devices
@@ -5106,10 +4991,8 @@ func (s *DevicesService) CheckinNetworkSmDevices(networkID string, requestDevice
 		SetResult(&ResponseDevicesCheckinNetworkSmDevices{}).
 		SetError(&Error).
 		Post(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -5118,7 +5001,6 @@ func (s *DevicesService) CheckinNetworkSmDevices(networkID string, requestDevice
 
 	result := response.Result().(*ResponseDevicesCheckinNetworkSmDevices)
 	return result, response, err
-
 }
 
 //LockNetworkSmDevices Lock a set of devices
@@ -5141,10 +5023,8 @@ func (s *DevicesService) LockNetworkSmDevices(networkID string, requestDevicesLo
 		SetResult(&ResponseDevicesLockNetworkSmDevices{}).
 		SetError(&Error).
 		Post(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -5153,7 +5033,6 @@ func (s *DevicesService) LockNetworkSmDevices(networkID string, requestDevicesLo
 
 	result := response.Result().(*ResponseDevicesLockNetworkSmDevices)
 	return result, response, err
-
 }
 
 //ModifyNetworkSmDevicesTags Add, delete, or update the tags of a set of devices
@@ -5176,10 +5055,8 @@ func (s *DevicesService) ModifyNetworkSmDevicesTags(networkID string, requestDev
 		SetResult(&ResponseDevicesModifyNetworkSmDevicesTags{}).
 		SetError(&Error).
 		Post(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -5188,7 +5065,6 @@ func (s *DevicesService) ModifyNetworkSmDevicesTags(networkID string, requestDev
 
 	result := response.Result().(*ResponseDevicesModifyNetworkSmDevicesTags)
 	return result, response, err
-
 }
 
 //MoveNetworkSmDevices Move a set of devices to a new network
@@ -5211,10 +5087,8 @@ func (s *DevicesService) MoveNetworkSmDevices(networkID string, requestDevicesMo
 		SetResult(&ResponseDevicesMoveNetworkSmDevices{}).
 		SetError(&Error).
 		Post(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -5223,7 +5097,6 @@ func (s *DevicesService) MoveNetworkSmDevices(networkID string, requestDevicesMo
 
 	result := response.Result().(*ResponseDevicesMoveNetworkSmDevices)
 	return result, response, err
-
 }
 
 //RebootNetworkSmDevices Reboot a set of endpoints
@@ -5246,10 +5119,8 @@ func (s *DevicesService) RebootNetworkSmDevices(networkID string, requestDevices
 		SetResult(&ResponseDevicesRebootNetworkSmDevices{}).
 		SetError(&Error).
 		Post(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -5258,7 +5129,6 @@ func (s *DevicesService) RebootNetworkSmDevices(networkID string, requestDevices
 
 	result := response.Result().(*ResponseDevicesRebootNetworkSmDevices)
 	return result, response, err
-
 }
 
 //ShutdownNetworkSmDevices Shutdown a set of endpoints
@@ -5281,10 +5151,8 @@ func (s *DevicesService) ShutdownNetworkSmDevices(networkID string, requestDevic
 		SetResult(&ResponseDevicesShutdownNetworkSmDevices{}).
 		SetError(&Error).
 		Post(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -5293,7 +5161,6 @@ func (s *DevicesService) ShutdownNetworkSmDevices(networkID string, requestDevic
 
 	result := response.Result().(*ResponseDevicesShutdownNetworkSmDevices)
 	return result, response, err
-
 }
 
 //WipeNetworkSmDevices Wipe a device
@@ -5316,10 +5183,8 @@ func (s *DevicesService) WipeNetworkSmDevices(networkID string, requestDevicesWi
 		SetResult(&ResponseDevicesWipeNetworkSmDevices{}).
 		SetError(&Error).
 		Post(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -5328,7 +5193,6 @@ func (s *DevicesService) WipeNetworkSmDevices(networkID string, requestDevicesWi
 
 	result := response.Result().(*ResponseDevicesWipeNetworkSmDevices)
 	return result, response, err
-
 }
 
 //InstallNetworkSmDeviceApps Install applications on a device
@@ -5353,10 +5217,8 @@ func (s *DevicesService) InstallNetworkSmDeviceApps(networkID string, deviceID s
 		// SetResult(&ResponseDevicesInstallNetworkSmDeviceApps{}).
 		SetError(&Error).
 		Post(path)
-
 	if err != nil {
 		return nil, err
-
 	}
 
 	if response.IsError() {
@@ -5364,7 +5226,6 @@ func (s *DevicesService) InstallNetworkSmDeviceApps(networkID string, deviceID s
 	}
 
 	return response, err
-
 }
 
 //RefreshNetworkSmDeviceDetails Refresh the details of a device
@@ -5389,10 +5250,8 @@ func (s *DevicesService) RefreshNetworkSmDeviceDetails(networkID string, deviceI
 		// SetResult(&ResponseDevicesRefreshNetworkSmDeviceDetails{}).
 		SetError(&Error).
 		Post(path)
-
 	if err != nil {
 		return nil, err
-
 	}
 
 	if response.IsError() {
@@ -5400,7 +5259,6 @@ func (s *DevicesService) RefreshNetworkSmDeviceDetails(networkID string, deviceI
 	}
 
 	return response, err
-
 }
 
 //UnenrollNetworkSmDevice Unenroll a device
@@ -5424,10 +5282,8 @@ func (s *DevicesService) UnenrollNetworkSmDevice(networkID string, deviceID stri
 		SetResult(&ResponseDevicesUnenrollNetworkSmDevice{}).
 		SetError(&Error).
 		Post(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -5436,7 +5292,6 @@ func (s *DevicesService) UnenrollNetworkSmDevice(networkID string, deviceID stri
 
 	result := response.Result().(*ResponseDevicesUnenrollNetworkSmDevice)
 	return result, response, err
-
 }
 
 //UninstallNetworkSmDeviceApps Uninstall applications on a device
@@ -5461,10 +5316,8 @@ func (s *DevicesService) UninstallNetworkSmDeviceApps(networkID string, deviceID
 		// SetResult(&ResponseDevicesUninstallNetworkSmDeviceApps{}).
 		SetError(&Error).
 		Post(path)
-
 	if err != nil {
 		return nil, err
-
 	}
 
 	if response.IsError() {
@@ -5472,7 +5325,6 @@ func (s *DevicesService) UninstallNetworkSmDeviceApps(networkID string, deviceID
 	}
 
 	return response, err
-
 }
 
 //CreateOrganizationDevicesControllerMigration Migrate devices to another controller or management mode
@@ -5495,10 +5347,8 @@ func (s *DevicesService) CreateOrganizationDevicesControllerMigration(organizati
 		SetResult(&ResponseDevicesCreateOrganizationDevicesControllerMigration{}).
 		SetError(&Error).
 		Post(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -5507,7 +5357,6 @@ func (s *DevicesService) CreateOrganizationDevicesControllerMigration(organizati
 
 	result := response.Result().(*ResponseDevicesCreateOrganizationDevicesControllerMigration)
 	return result, response, err
-
 }
 
 //BulkUpdateOrganizationDevicesDetails Updating device details (currently only used for Catalyst devices)
@@ -5530,10 +5379,8 @@ func (s *DevicesService) BulkUpdateOrganizationDevicesDetails(organizationID str
 		SetResult(&ResponseDevicesBulkUpdateOrganizationDevicesDetails{}).
 		SetError(&Error).
 		Post(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -5542,7 +5389,6 @@ func (s *DevicesService) BulkUpdateOrganizationDevicesDetails(organizationID str
 
 	result := response.Result().(*ResponseDevicesBulkUpdateOrganizationDevicesDetails)
 	return result, response, err
-
 }
 
 //CreateOrganizationInventoryDevicesSwapsBulk Swap the devices identified by devices.old with a devices.new, then perform the :afterAction on the devices.old.
@@ -5565,10 +5411,8 @@ func (s *DevicesService) CreateOrganizationInventoryDevicesSwapsBulk(organizatio
 		SetResult(&ResponseDevicesCreateOrganizationInventoryDevicesSwapsBulk{}).
 		SetError(&Error).
 		Post(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -5577,7 +5421,6 @@ func (s *DevicesService) CreateOrganizationInventoryDevicesSwapsBulk(organizatio
 
 	result := response.Result().(*ResponseDevicesCreateOrganizationInventoryDevicesSwapsBulk)
 	return result, response, err
-
 }
 
 //CloneOrganizationSwitchDevices Clone port-level and some switch-level configuration settings from a source switch to one or more target switches
@@ -5600,10 +5443,8 @@ func (s *DevicesService) CloneOrganizationSwitchDevices(organizationID string, r
 		SetResult(&ResponseDevicesCloneOrganizationSwitchDevices{}).
 		SetError(&Error).
 		Post(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -5612,7 +5453,6 @@ func (s *DevicesService) CloneOrganizationSwitchDevices(organizationID string, r
 
 	result := response.Result().(*ResponseDevicesCloneOrganizationSwitchDevices)
 	return result, response, err
-
 }
 
 //UpdateDevice Update the attributes of a device
@@ -5632,10 +5472,8 @@ func (s *DevicesService) UpdateDevice(serial string, requestDevicesUpdateDevice 
 		SetResult(&ResponseDevicesUpdateDevice{}).
 		SetError(&Error).
 		Put(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -5644,7 +5482,6 @@ func (s *DevicesService) UpdateDevice(serial string, requestDevicesUpdateDevice 
 
 	result := response.Result().(*ResponseDevicesUpdateDevice)
 	return result, response, err
-
 }
 
 //UpdateDeviceCellularSims Updates the SIM and APN configurations for a cellular device.
@@ -5664,10 +5501,8 @@ func (s *DevicesService) UpdateDeviceCellularSims(serial string, requestDevicesU
 		SetResult(&ResponseDevicesUpdateDeviceCellularSims{}).
 		SetError(&Error).
 		Put(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -5676,7 +5511,6 @@ func (s *DevicesService) UpdateDeviceCellularSims(serial string, requestDevicesU
 
 	result := response.Result().(*ResponseDevicesUpdateDeviceCellularSims)
 	return result, response, err
-
 }
 
 //UpdateDeviceManagementInterface Update the management interface settings for a device
@@ -5696,10 +5530,8 @@ func (s *DevicesService) UpdateDeviceManagementInterface(serial string, requestD
 		SetResult(&ResponseDevicesUpdateDeviceManagementInterface{}).
 		SetError(&Error).
 		Put(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -5708,7 +5540,6 @@ func (s *DevicesService) UpdateDeviceManagementInterface(serial string, requestD
 
 	result := response.Result().(*ResponseDevicesUpdateDeviceManagementInterface)
 	return result, response, err
-
 }
 
 //UpdateNetworkSmDevicesFields Modify the fields of a device
@@ -5728,10 +5559,8 @@ func (s *DevicesService) UpdateNetworkSmDevicesFields(networkID string, requestD
 		SetResult(&ResponseDevicesUpdateNetworkSmDevicesFields{}).
 		SetError(&Error).
 		Put(path)
-
 	if err != nil {
 		return nil, nil, err
-
 	}
 
 	if response.IsError() {
@@ -5740,5 +5569,4 @@ func (s *DevicesService) UpdateNetworkSmDevicesFields(networkID string, requestD
 
 	result := response.Result().(*ResponseDevicesUpdateNetworkSmDevicesFields)
 	return result, response, err
-
 }
