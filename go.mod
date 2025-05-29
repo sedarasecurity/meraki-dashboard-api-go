@@ -1,4 +1,4 @@
-module github.com/sedarasecurity/meraki-dashboard-api-go
+module github.com/sedarasecurity/meraki-dashboard-api-go/v5
 
 go 1.21.5
 
